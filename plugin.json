@@ -1,0 +1,8 @@
+{
+    "name": "Gcode Filename Format",
+    "author": "Robert Gomez, Jr.",
+    "version": "0.5",
+    "api": "6.0",
+    "description": "Add print settings in gcode filenames",
+    "catalog": "uranium"
+}
