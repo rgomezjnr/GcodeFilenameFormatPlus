@@ -57,6 +57,7 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
 
         self._writing = False
 
+
     ##  Request the specified nodes to be written to a file.
     #
     #   \param nodes A collection of scene nodes that should be written to the
@@ -76,33 +77,8 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
 
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
 
-        # material
-        #material="0"
-        layer_height = global_stack.userChanges.getProperty("layer_height", "value")
-        infill_sparse_density = first_extruder_stack.getProperty("infill_sparse_density", "value")
-        default_material_print_temperature = first_extruder_stack.getProperty("default_material_print_temperature", "value")
-        material_bed_temperature = global_stack.userChanges.getProperty("material_bed_temperature", "value")
-        # infill pattern
-        #infill_pattern="grid"
-        # top/bottom fill pattern
-        #top_bottom_pattern="lines"
-        #top_bottom_pattern_0="lines"
-        # combing
-
-        # get default values if user did not change value
-        if (layer_height is None):
-            layer_height = global_stack.getProperty("layer_height", "value")
-        if (infill_sparse_density is None):
-            infill_sparse_density = global_stack.extruders.getProperty("infill_sparse_density", "value")
-        if (default_material_print_temperature is None):
-            default_material_print_temperature = global_stack.extruders.getProperty("default_material_print_temperature", "value")
-        if (material_bed_temperature is None):
-            material_bed_temperature = global_stack.getProperty("material_bed_temperature", "value")
-
-        Logger.log("d", "layer_height = %s", layer_height)
-        Logger.log("d", "infill_sparse_density = %s", infill_sparse_density)
-        Logger.log("d", "default_material_print_temperature = %s", default_material_print_temperature)
-        Logger.log("d", "material_bed_temperature = %s", material_bed_temperature)
+        # Get all current settings in a dictionary
+        print_setting = self.getPrintSettings(global_stack, first_extruder_stack)
 
         # Set up and display file dialog
         dialog = QFileDialog()
@@ -155,7 +131,7 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
             mime_types.append(item["mime_type"])
             if preferred_mimetype == item["mime_type"]:
                 selected_filter = type_filter
-                file_name += " layer_height " + str(layer_height) + " infill_sparse_density " + str(infill_sparse_density) + " default_material_print_temperaturei " + str(default_material_print_temperature) + " material_bed_temperature " + str(material_bed_temperature)
+                file_name += self.filenameTackOn(print_setting)
                 if file_name:
                     file_name += "." + item["extension"]
 
@@ -228,6 +204,51 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         except OSError as e:
             Logger.log("e", "Operating system would not let us write to %s: %s", file_name, str(e))
             raise OutputDeviceError.WriteRequestFailedError(catalog.i18nc("@info:status Don't translate the XML tags <filename> or <message>!", "Could not save to <filename>{0}</filename>: <message>{1}</message>").format()) from e
+
+
+    def getPrintSettings(self, global_stack, first_extruder_stack):
+        # Dictionary to hold results
+        print_setting = dict()
+
+        # material
+        #material="0"
+        print_setting["layer_height"] = global_stack.userChanges.getProperty("layer_height", "value")
+        print_setting["infill_sparse_density"] = first_extruder_stack.getProperty("infill_sparse_density", "value")
+        print_setting["default_material_print_temperature"] = first_extruder_stack.getProperty("default_material_print_temperature", "value")
+        print_setting["material_bed_temperature"] = global_stack.userChanges.getProperty("material_bed_temperature", "value")
+        # infill pattern
+        #infill_pattern="grid"
+        # top/bottom fill pattern
+        #top_bottom_pattern="lines"
+        #top_bottom_pattern_0="lines"
+        # combing
+
+        # get default values if user did not change value
+        if (print_setting.get("layer_height") is None):
+            print_setting["layer_height"] = global_stack.getProperty("layer_height", "value")
+        if (print_setting.get("infill_sparse_density") is None):
+            print_setting["infill_sparse_density"] = global_stack.extruders.getProperty("infill_sparse_density", "value")
+        if (print_setting.get("default_material_print_temperature") is None):
+            print_setting["default_material_print_temperature"] = global_stack.extruders.getProperty("default_material_print_temperature", "value")
+        if (print_setting.get("material_bed_temperature") is None):
+            print_setting["material_bed_temperature"] = global_stack.getProperty("material_bed_temperature", "value")
+
+        Logger.log("d", "layer_height = %s", print_setting.get("layer_height"))
+        Logger.log("d", "infill_sparse_density = %s", print_setting.get("infill_sparse_density"))
+        Logger.log("d", "default_material_print_temperature = %s", print_setting.get("default_material_print_temperature"))
+        Logger.log("d", "material_bed_temperature = %s", print_setting.get("material_bed_temperature"))
+
+        return print_setting
+
+
+    # Structure captured print settings into a tack on for file name
+    def filenameTackOn(self, print_setting):
+        tack_on = ""
+        for setting, value in print_setting.items():
+            tack_on += " " + setting + " " + str(value)
+
+        return tack_on
+
 
     def _onJobProgress(self, job, progress):
         self.writeProgress.emit(self, progress)
