@@ -216,12 +216,9 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         print_setting["infill_sparse_density"] = first_extruder_stack.getProperty("infill_sparse_density", "value")
         print_setting["default_material_print_temperature"] = first_extruder_stack.getProperty("default_material_print_temperature", "value")
         print_setting["material_bed_temperature"] = global_stack.userChanges.getProperty("material_bed_temperature", "value")
-        # infill pattern
-        #infill_pattern="grid"
-        # top/bottom fill pattern
-        #top_bottom_pattern="lines"
-        #top_bottom_pattern_0="lines"
-        # combing
+        print_setting["infill_pattern"] = global_stack.userChanges.getProperty("infill_pattern", "value")
+        print_setting["top_bottom_pattern"] = global_stack.userChanges.getProperty("top_bottom_pattern", "value")
+        print_setting["retraction_combing"] = global_stack.userChanges.getProperty("retraction_combing", "value")
 
         # get default values if user did not change value
         if (print_setting.get("layer_height") is None):
@@ -232,11 +229,20 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
             print_setting["default_material_print_temperature"] = global_stack.extruders.getProperty("default_material_print_temperature", "value")
         if (print_setting.get("material_bed_temperature") is None):
             print_setting["material_bed_temperature"] = global_stack.getProperty("material_bed_temperature", "value")
+        if (print_setting.get("infill_pattern") is None):
+            print_setting["infill_pattern"] = global_stack.getProperty("infill_pattern", "value")
+        if (print_setting.get("top_bottom_pattern") is None):
+            print_setting["top_bottom_pattern"] = global_stack.getProperty("top_bottom_pattern", "value")
+        if (print_setting.get("retraction_combing") is None):
+            print_setting["retraction_combing"] = global_stack.getProperty("retraction_combing", "value")
 
         Logger.log("d", "layer_height = %s", print_setting.get("layer_height"))
         Logger.log("d", "infill_sparse_density = %s", print_setting.get("infill_sparse_density"))
         Logger.log("d", "default_material_print_temperature = %s", print_setting.get("default_material_print_temperature"))
         Logger.log("d", "material_bed_temperature = %s", print_setting.get("material_bed_temperature"))
+        Logger.log("d", "infill_pattern = %s", print_setting.get("infill_pattern"))
+        Logger.log("d", "top_bottom_pattern = %s", print_setting.get("top_bottom_pattern"))
+        Logger.log("d", "retraction_combing = %s", print_setting.get("retraction_combing"))
 
         return print_setting
 
