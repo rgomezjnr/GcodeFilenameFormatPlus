@@ -80,6 +80,12 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         # Get all current settings in a dictionary
         print_setting = self.getPrintSettings(global_stack, first_extruder_stack)
 
+        # Get list of modified print settings using SliceInfoPlugin
+        slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
+        modified_print_settings = slice_info._getUserModifiedSettingKeys()
+
+        Logger.log("d", "modified_print_settings = %s", modified_print_settings)
+
         # Set up and display file dialog
         dialog = QFileDialog()
 
