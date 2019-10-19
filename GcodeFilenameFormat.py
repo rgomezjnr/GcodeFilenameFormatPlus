@@ -216,8 +216,8 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         # Dictionary to hold results
         print_setting = dict()
 
-        # material
-        #material="0"
+        print_setting["material_brand"] = first_extruder_stack.material.getMetaData().get("brand", "")
+        print_setting["material_type"] = first_extruder_stack.material.getMetaData().get("material", "")
         print_setting["layer_height"] = global_stack.userChanges.getProperty("layer_height", "value")
         print_setting["infill_sparse_density"] = first_extruder_stack.getProperty("infill_sparse_density", "value")
         print_setting["default_material_print_temperature"] = first_extruder_stack.getProperty("default_material_print_temperature", "value")
@@ -242,6 +242,8 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         if (print_setting.get("retraction_combing") is None):
             print_setting["retraction_combing"] = global_stack.getProperty("retraction_combing", "value")
 
+        Logger.log("d", "material_brand = %s", print_setting.get("material_brand"))
+        Logger.log("d", "material_type = %s", print_setting.get("material_type"))
         Logger.log("d", "layer_height = %s", print_setting.get("layer_height"))
         Logger.log("d", "infill_sparse_density = %s", print_setting.get("infill_sparse_density"))
         Logger.log("d", "default_material_print_temperature = %s", print_setting.get("default_material_print_temperature"))
