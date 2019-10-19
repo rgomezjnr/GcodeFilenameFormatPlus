@@ -86,6 +86,11 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
 
         Logger.log("d", "modified_print_settings = %s", modified_print_settings)
 
+        machine_id = global_stack.definition.getId()
+        manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
+        Logger.log("d", "machine_id = %s", machine_id)
+        Logger.log("d", "manufacturer = %s", manufacturer)
+
         # Set up and display file dialog
         dialog = QFileDialog()
 
