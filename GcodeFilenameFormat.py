@@ -21,6 +21,7 @@ from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
 
 from typing import cast
+from collections import OrderedDict
 
 catalog = i18nCatalog("uranium")
 
@@ -220,7 +221,7 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
     def getPrintSettings(self, global_stack, first_extruder_stack):
         # Dictionary to hold results
         print_setting = dict()
-        print_setting_abbreviations = dict()
+        print_setting_abbreviations = OrderedDict()
 
         print_setting["material_brand"] = first_extruder_stack.material.getMetaData().get("brand", "")
         print_setting["material_type"] = first_extruder_stack.material.getMetaData().get("material", "")
