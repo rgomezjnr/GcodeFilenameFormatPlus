@@ -220,6 +220,7 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
     def getPrintSettings(self, global_stack, first_extruder_stack):
         # Dictionary to hold results
         print_setting = dict()
+        print_setting_abbreviations = dict()
 
         print_setting["material_brand"] = first_extruder_stack.material.getMetaData().get("brand", "")
         print_setting["material_type"] = first_extruder_stack.material.getMetaData().get("material", "")
@@ -257,7 +258,17 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         Logger.log("d", "top_bottom_pattern = %s", print_setting.get("top_bottom_pattern"))
         Logger.log("d", "retraction_combing = %s", print_setting.get("retraction_combing"))
 
-        return print_setting
+        print_setting_abbreviations["mtl-brand"] = print_setting["material_brand"]
+        print_setting_abbreviations["mtl-type"] = print_setting["material_type"]
+        print_setting_abbreviations["lh"] = print_setting["layer_height"]
+        print_setting_abbreviations["inf"] = print_setting["infill_sparse_density"]
+        print_setting_abbreviations["mtl-temp"] = print_setting["default_material_print_temperature"]
+        print_setting_abbreviations["bed-temp"] = print_setting["material_bed_temperature"]
+        print_setting_abbreviations["inf-pat"] = print_setting["infill_pattern"]
+        print_setting_abbreviations["tb-pat"] = print_setting["top_bottom_pattern"]
+        print_setting_abbreviations["comb"] = print_setting["retraction_combing"]
+
+        return print_setting_abbreviations
 
 
     # Structure captured print settings into a tack on for file name
