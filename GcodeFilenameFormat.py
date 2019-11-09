@@ -25,6 +25,12 @@ from collections import OrderedDict
 
 catalog = i18nCatalog("uranium")
 
+import os.path
+from PyQt5.QtCore import QUrl
+from PyQt5.QtQml import QQmlComponent, QQmlContext
+from UM.Extension import Extension
+from UM.PluginRegistry import PluginRegistry
+
 class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin): #We need to be an OutputDevicePlugin for the plug-in system.
     ##  Called upon launch.
     #
@@ -43,7 +49,7 @@ class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin): #We need to be an Out
         self.getOutputDeviceManager().removeOutputDevice("gcode_filename_format") #Remove all devices that were added. In this case it's only one.
 
 ##  Implements an OutputDevice that supports saving to arbitrary local files.
-class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the writing.
+class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to do the writing.
     def __init__(self):
         super().__init__("gcode_filename_format")
 
@@ -55,9 +61,11 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
         self.setDescription(catalog.i18nc("@info:tooltip", "Save Gcode"))
         self.setIconName("save")
 
-
         self._writing = False
 
+        self.setMenuName("Gcode Filename Format")
+        self.addMenuItem("Edit Format", self.editFormat)
+        self.format_window = None
 
     ##  Request the specified nodes to be written to a file.
     #
@@ -309,3 +317,14 @@ class GcodeFilenameFormat(OutputDevice): #We need an actual device to do the wri
     def _onMessageActionTriggered(self, message, action):
         if action == "open_folder" and hasattr(message, "_folder"):
             QDesktopServices.openUrl(QUrl.fromLocalFile(message._folder))
+
+    def editFormat(self):
+        if not self.format_window: #Don't create more than one.
+            self.format_window = self._createDialogue()
+        self.format_window.show()
+
+    def _createDialogue(self):
+        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "Format.qml")
+        component = Application.getInstance().createQmlComponent(qml_file_path)
+
+        return component

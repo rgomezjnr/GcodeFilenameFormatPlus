@@ -19,4 +19,7 @@ def getMetaData():
 #
 #   \param app The application that the plug-in needs to register with.
 def register(app):
-    return {"output_device": GcodeFilenameFormat.GcodeFilenameFormatDevicePlugin()}
+    return {
+        "output_device": GcodeFilenameFormat.GcodeFilenameFormatDevicePlugin(),
+        "extension": GcodeFilenameFormat.GcodeFilenameFormat()
+    }
