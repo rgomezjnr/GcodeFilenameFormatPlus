@@ -31,6 +31,8 @@ from PyQt5.QtQml import QQmlComponent, QQmlContext
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
 
+DEFAULT_FILENAME_FORMAT = "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F.gcode"
+
 class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin): #We need to be an OutputDevicePlugin for the plug-in system.
     ##  Called upon launch.
     #
@@ -55,6 +57,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         Application.getInstance().getPreferences().addPreference("gcode_filename_format/last_used_type", "")
         Application.getInstance().getPreferences().addPreference("gcode_filename_format/dialog_save_path", "")
+        Application.getInstance().getPreferences().addPreference("gcode_filename_format/filename_format", DEFAULT_FILENAME_FORMAT)
 
         self.setName(catalog.i18nc("@item:inmenu", "Gcode Filename Format")) #Human-readable name (you may want to internationalise this). Gets put in messages and such.
         self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Save Gcode")) #This is put on the save button.
@@ -77,6 +80,13 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
     #   MIME types available to the currently active machine?
     #   \param kwargs Keyword arguments.
     def requestWrite(self, nodes, file_name = None, limit_mimetypes = None, file_handler = None, **kwargs):
+        filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
+
+        Logger.log("d", "filename_format = %s", filename_format)
+
+        if filename_format is "":
+            filename_format = DEFAULT_FILENAME_FORMAT
+
         if self._writing:
             raise OutputDeviceError.DeviceBusyError()
 
