@@ -27,7 +27,7 @@ UM.Dialog
     TextField
     {
         id: textfield
-        placeholderText: "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F"
+        text: UM.Preferences.getValue("gcode_filename_format/filename_format")
         anchors.top: label.bottom
         anchors.topMargin: 5 * screenScaleFactor
         width: base.width - 15 * screenScaleFactor
@@ -37,7 +37,7 @@ UM.Dialog
     {
         text: "Default"
         iconName: "dialog-default"
-        onClicked: dialog.accept()
+        onClicked: textfield.text = "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F"
     }
 
     rightButtons: Button
