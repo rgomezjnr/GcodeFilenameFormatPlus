@@ -27,7 +27,7 @@ UM.Dialog
     TextField
     {
         id: textfield
-        placeholderText: "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F.gcode"
+        placeholderText: "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F"
         anchors.top: label.bottom
         anchors.topMargin: 5 * screenScaleFactor
         width: base.width - 15 * screenScaleFactor

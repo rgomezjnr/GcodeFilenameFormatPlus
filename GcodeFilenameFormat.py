@@ -31,7 +31,7 @@ from PyQt5.QtQml import QQmlComponent, QQmlContext
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
 
-DEFAULT_FILENAME_FORMAT = "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F.gcode"
+DEFAULT_FILENAME_FORMAT = "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F"
 
 class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin): #We need to be an OutputDevicePlugin for the plug-in system.
     ##  Called upon launch.
@@ -161,7 +161,9 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
             mime_types.append(item["mime_type"])
             if preferred_mimetype == item["mime_type"]:
                 selected_filter = type_filter
-                file_name += self.filenameTackOn(print_setting)
+                file_name = self.parseFilenameFormat(filename_format, file_name, print_setting)
+                Logger.log("d", "parsed_file_name = %s", file_name)
+                #file_name += self.filenameTackOn(print_setting)
                 if file_name:
                     file_name += "." + item["extension"]
 
@@ -287,7 +289,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         print_setting_abbreviations["tb-pat"] = print_setting["top_bottom_pattern"]
         print_setting_abbreviations["comb"] = print_setting["retraction_combing"]
 
-        return print_setting_abbreviations
+        return print_setting
 
 
     # Structure captured print settings into a tack on for file name
@@ -298,6 +300,13 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         return tack_on
 
+    def parseFilenameFormat(self, filename_format, file_name, print_setting):
+        for setting, value in print_setting.items():
+            filename_format = filename_format.replace("[" + setting + "]", str(value))
+
+        filename_format = filename_format.replace("[base_name]", file_name)
+
+        return filename_format
 
     def _onJobProgress(self, job, progress):
         self.writeProgress.emit(self, progress)
