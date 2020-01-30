@@ -306,6 +306,39 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         return tack_on
 
     def parseFilenameFormat(self, filename_format, file_name, print_setting):
+        application = cast(CuraApplication, Application.getInstance())
+        machine_manager = application.getMachineManager()
+        global_stack = machine_manager.activeMachine
+
+        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
+
+        print_settings = dict()
+
+        # handle special tokens first like material and brand
+
+        tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
+        Logger.log("d", "tokens = %s", tokens)
+        for t in tokens:
+            Logger.log("d", "t = %s", first_extruder_stack.material.getMetaData().get(t, ""))
+            Logger.log("d", "t = %s", global_stack.userChanges.getProperty(t, "value"))
+            Logger.log("d", "t = %s", first_extruder_stack.getProperty(t, "value"))
+            stack1 = first_extruder_stack.material.getMetaData().get(t, "")
+            stack2 = global_stack.userChanges.getProperty(t, "value")
+            stack3 = first_extruder_stack.getProperty(t, "value")
+
+            if stack1 is not None and stack1 is not "":
+                print_settings[t] = stack1
+            elif stack2 is not None and stack2 is not "":
+                print_settings[t] = stack2
+            elif stack3 is not None and stack3 is not "":
+                print_settings[t] = stack3
+            else:
+                print_settings[t] = None
+
+        Logger.log("d", "print_settings = %s", print_settings)
+
+        #populateFilenameWithValues()
+
         for setting, value in print_setting.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))
 
