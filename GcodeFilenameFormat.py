@@ -314,8 +314,6 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         print_settings = dict()
 
-        # handle special tokens first like material and brand
-
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
         Logger.log("d", "tokens = %s", tokens)
         for t in tokens:
@@ -337,12 +335,12 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         Logger.log("d", "print_settings = %s", print_settings)
 
-        #populateFilenameWithValues()
+        print_settings["base_name"] = file_name
 
-        for setting, value in print_setting.items():
+        for setting, value in print_settings.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))
 
-        filename_format = filename_format.replace("[base_name]", file_name)
+        Logger.log("d", "filename_format = %s", filename_format)
 
         return filename_format
 
