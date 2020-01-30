@@ -2,6 +2,7 @@
 
 import os
 import sys
+import re
 
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
@@ -31,7 +32,7 @@ from PyQt5.QtQml import QQmlComponent, QQmlContext
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
 
-DEFAULT_FILENAME_FORMAT = "[base_name] [material_brand] [material_type] [layer_height]mm [infill_sparse_density]% [default_material_print_temperature]F [material_bed_temperature]F"
+DEFAULT_FILENAME_FORMAT = "[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]F bed [material_bed_temperature]F"
 
 class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin): #We need to be an OutputDevicePlugin for the plug-in system.
     ##  Called upon launch.
@@ -248,6 +249,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         print_setting["layer_height"] = global_stack.userChanges.getProperty("layer_height", "value")
         print_setting["infill_sparse_density"] = first_extruder_stack.getProperty("infill_sparse_density", "value")
         print_setting["default_material_print_temperature"] = first_extruder_stack.getProperty("default_material_print_temperature", "value")
+        print_setting["material_print_temperature"] = first_extruder_stack.getProperty("material_print_temperature", "value")
         print_setting["material_bed_temperature"] = global_stack.userChanges.getProperty("material_bed_temperature", "value")
         print_setting["infill_pattern"] = global_stack.userChanges.getProperty("infill_pattern", "value")
         print_setting["top_bottom_pattern"] = global_stack.userChanges.getProperty("top_bottom_pattern", "value")
@@ -260,6 +262,8 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
             print_setting["infill_sparse_density"] = global_stack.extruders.getProperty("infill_sparse_density", "value")
         if (print_setting.get("default_material_print_temperature") is None):
             print_setting["default_material_print_temperature"] = global_stack.extruders.getProperty("default_material_print_temperature", "value")
+        if (print_setting.get("material_print_temperature") is None):
+            print_setting["material_print_temperature"] = global_stack.extruders.getProperty("material_print_temperature", "value")
         if (print_setting.get("material_bed_temperature") is None):
             print_setting["material_bed_temperature"] = global_stack.getProperty("material_bed_temperature", "value")
         if (print_setting.get("infill_pattern") is None):
@@ -274,6 +278,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         Logger.log("d", "layer_height = %s", print_setting.get("layer_height"))
         Logger.log("d", "infill_sparse_density = %s", print_setting.get("infill_sparse_density"))
         Logger.log("d", "default_material_print_temperature = %s", print_setting.get("default_material_print_temperature"))
+        Logger.log("d", "material_print_temperature = %s", print_setting.get("material_print_temperature"))
         Logger.log("d", "material_bed_temperature = %s", print_setting.get("material_bed_temperature"))
         Logger.log("d", "infill_pattern = %s", print_setting.get("infill_pattern"))
         Logger.log("d", "top_bottom_pattern = %s", print_setting.get("top_bottom_pattern"))
