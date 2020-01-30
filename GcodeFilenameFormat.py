@@ -97,9 +97,6 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
 
-        # Get all current settings in a dictionary
-        print_setting = self.getPrintSettings(global_stack, first_extruder_stack)
-
         # Get list of modified print settings using SliceInfoPlugin
         slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
         modified_print_settings = slice_info._getUserModifiedSettingKeys()
@@ -162,8 +159,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
             mime_types.append(item["mime_type"])
             if preferred_mimetype == item["mime_type"]:
                 selected_filter = type_filter
-                file_name = self.parseFilenameFormat(filename_format, file_name, print_setting)
-                Logger.log("d", "parsed_file_name = %s", file_name)
+                file_name = self.parseFilenameFormat(filename_format, file_name)
                 #file_name += self.filenameTackOn(print_setting)
                 if file_name:
                     file_name += "." + item["extension"]
@@ -238,65 +234,6 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
             Logger.log("e", "Operating system would not let us write to %s: %s", file_name, str(e))
             raise OutputDeviceError.WriteRequestFailedError(catalog.i18nc("@info:status Don't translate the XML tags <filename> or <message>!", "Could not save to <filename>{0}</filename>: <message>{1}</message>").format()) from e
 
-
-    def getPrintSettings(self, global_stack, first_extruder_stack):
-        # Dictionary to hold results
-        print_setting = dict()
-        print_setting_abbreviations = OrderedDict()
-
-        print_setting["material_brand"] = first_extruder_stack.material.getMetaData().get("brand", "")
-        print_setting["material_type"] = first_extruder_stack.material.getMetaData().get("material", "")
-        print_setting["layer_height"] = global_stack.userChanges.getProperty("layer_height", "value")
-        print_setting["infill_sparse_density"] = first_extruder_stack.getProperty("infill_sparse_density", "value")
-        print_setting["default_material_print_temperature"] = first_extruder_stack.getProperty("default_material_print_temperature", "value")
-        print_setting["material_print_temperature"] = first_extruder_stack.getProperty("material_print_temperature", "value")
-        print_setting["material_bed_temperature"] = global_stack.userChanges.getProperty("material_bed_temperature", "value")
-        print_setting["infill_pattern"] = global_stack.userChanges.getProperty("infill_pattern", "value")
-        print_setting["top_bottom_pattern"] = global_stack.userChanges.getProperty("top_bottom_pattern", "value")
-        print_setting["retraction_combing"] = global_stack.userChanges.getProperty("retraction_combing", "value")
-
-        # get default values if user did not change value
-        if (print_setting.get("layer_height") is None):
-            print_setting["layer_height"] = global_stack.getProperty("layer_height", "value")
-        if (print_setting.get("infill_sparse_density") is None):
-            print_setting["infill_sparse_density"] = global_stack.extruders.getProperty("infill_sparse_density", "value")
-        if (print_setting.get("default_material_print_temperature") is None):
-            print_setting["default_material_print_temperature"] = global_stack.extruders.getProperty("default_material_print_temperature", "value")
-        if (print_setting.get("material_print_temperature") is None):
-            print_setting["material_print_temperature"] = global_stack.extruders.getProperty("material_print_temperature", "value")
-        if (print_setting.get("material_bed_temperature") is None):
-            print_setting["material_bed_temperature"] = global_stack.getProperty("material_bed_temperature", "value")
-        if (print_setting.get("infill_pattern") is None):
-            print_setting["infill_pattern"] = global_stack.getProperty("infill_pattern", "value")
-        if (print_setting.get("top_bottom_pattern") is None):
-            print_setting["top_bottom_pattern"] = global_stack.getProperty("top_bottom_pattern", "value")
-        if (print_setting.get("retraction_combing") is None):
-            print_setting["retraction_combing"] = global_stack.getProperty("retraction_combing", "value")
-
-        Logger.log("d", "material_brand = %s", print_setting.get("material_brand"))
-        Logger.log("d", "material_type = %s", print_setting.get("material_type"))
-        Logger.log("d", "layer_height = %s", print_setting.get("layer_height"))
-        Logger.log("d", "infill_sparse_density = %s", print_setting.get("infill_sparse_density"))
-        Logger.log("d", "default_material_print_temperature = %s", print_setting.get("default_material_print_temperature"))
-        Logger.log("d", "material_print_temperature = %s", print_setting.get("material_print_temperature"))
-        Logger.log("d", "material_bed_temperature = %s", print_setting.get("material_bed_temperature"))
-        Logger.log("d", "infill_pattern = %s", print_setting.get("infill_pattern"))
-        Logger.log("d", "top_bottom_pattern = %s", print_setting.get("top_bottom_pattern"))
-        Logger.log("d", "retraction_combing = %s", print_setting.get("retraction_combing"))
-
-        print_setting_abbreviations["mtl-brand"] = print_setting["material_brand"]
-        print_setting_abbreviations["mtl-type"] = print_setting["material_type"]
-        print_setting_abbreviations["lh"] = print_setting["layer_height"]
-        print_setting_abbreviations["inf"] = print_setting["infill_sparse_density"]
-        print_setting_abbreviations["mtl-temp"] = print_setting["default_material_print_temperature"]
-        print_setting_abbreviations["bed-temp"] = print_setting["material_bed_temperature"]
-        print_setting_abbreviations["inf-pat"] = print_setting["infill_pattern"]
-        print_setting_abbreviations["tb-pat"] = print_setting["top_bottom_pattern"]
-        print_setting_abbreviations["comb"] = print_setting["retraction_combing"]
-
-        return print_setting
-
-
     # Structure captured print settings into a tack on for file name
     def filenameTackOn(self, print_setting):
         tack_on = ""
@@ -305,7 +242,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         return tack_on
 
-    def parseFilenameFormat(self, filename_format, file_name, print_setting):
+    def parseFilenameFormat(self, filename_format, file_name):
         application = cast(CuraApplication, Application.getInstance())
         machine_manager = application.getMachineManager()
         global_stack = machine_manager.activeMachine
