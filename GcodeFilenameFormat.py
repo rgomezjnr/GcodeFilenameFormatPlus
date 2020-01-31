@@ -91,22 +91,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         if self._writing:
             raise OutputDeviceError.DeviceBusyError()
 
-        application = cast(CuraApplication, Application.getInstance())
-        machine_manager = application.getMachineManager()
-        global_stack = machine_manager.activeMachine
-
-        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
-
-        # Get list of modified print settings using SliceInfoPlugin
-        slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
-        modified_print_settings = slice_info._getUserModifiedSettingKeys()
-
-        Logger.log("d", "modified_print_settings = %s", modified_print_settings)
-
-        machine_id = global_stack.definition.getId()
-        manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
-        Logger.log("d", "machine_id = %s", machine_id)
-        Logger.log("d", "manufacturer = %s", manufacturer)
+        self.getModifiedPrintSettings()
 
         # Set up and display file dialog
         dialog = QFileDialog()
@@ -320,3 +305,21 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         component = Application.getInstance().createQmlComponent(qml_file_path)
 
         return component
+
+    def getModifiedPrintSettings(self):
+        application = cast(CuraApplication, Application.getInstance())
+        machine_manager = application.getMachineManager()
+        global_stack = machine_manager.activeMachine
+
+        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
+
+        # Get list of modified print settings using SliceInfoPlugin
+        slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
+        modified_print_settings = slice_info._getUserModifiedSettingKeys()
+
+        Logger.log("d", "modified_print_settings = %s", modified_print_settings)
+
+        machine_id = global_stack.definition.getId()
+        manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
+        Logger.log("d", "machine_id = %s", machine_id)
+        Logger.log("d", "manufacturer = %s", manufacturer)
