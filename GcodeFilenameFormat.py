@@ -81,6 +81,10 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
     #   MIME types available to the currently active machine?
     #   \param kwargs Keyword arguments.
     def requestWrite(self, nodes, file_name = None, limit_mimetypes = None, file_handler = None, **kwargs):
+        application = cast(CuraApplication, Application.getInstance())
+        machine_manager = application.getMachineManager()
+        global_stack = machine_manager.activeMachine
+
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
 
         Logger.log("d", "filename_format = %s", filename_format)
@@ -91,7 +95,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         if self._writing:
             raise OutputDeviceError.DeviceBusyError()
 
-        self.getModifiedPrintSettings()
+        self.getModifiedPrintSettings(application, global_stack)
 
         # Set up and display file dialog
         dialog = QFileDialog()
@@ -144,7 +148,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
             mime_types.append(item["mime_type"])
             if preferred_mimetype == item["mime_type"]:
                 selected_filter = type_filter
-                file_name = self.parseFilenameFormat(filename_format, file_name)
+                file_name = self.parseFilenameFormat(filename_format, file_name, application, global_stack)
                 #file_name += self.filenameTackOn(print_setting)
                 if file_name:
                     file_name += "." + item["extension"]
@@ -227,11 +231,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         return tack_on
 
-    def parseFilenameFormat(self, filename_format, file_name):
-        application = cast(CuraApplication, Application.getInstance())
-        machine_manager = application.getMachineManager()
-        global_stack = machine_manager.activeMachine
-
+    def parseFilenameFormat(self, filename_format, file_name, application, global_stack):
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
 
         print_settings = dict()
@@ -306,13 +306,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         return component
 
-    def getModifiedPrintSettings(self):
-        application = cast(CuraApplication, Application.getInstance())
-        machine_manager = application.getMachineManager()
-        global_stack = machine_manager.activeMachine
-
-        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
-
+    def getModifiedPrintSettings(self, application, global_stack):
         # Get list of modified print settings using SliceInfoPlugin
         slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
         modified_print_settings = slice_info._getUserModifiedSettingKeys()
