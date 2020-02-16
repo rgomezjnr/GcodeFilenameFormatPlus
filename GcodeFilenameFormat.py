@@ -34,25 +34,15 @@ from UM.PluginRegistry import PluginRegistry
 
 DEFAULT_FILENAME_FORMAT = "[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]F bed [material_bed_temperature]F"
 
-class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin): #We need to be an OutputDevicePlugin for the plug-in system.
-    ##  Called upon launch.
-    #
-    #   You can use this to make a connection to the device or service, and
-    #   register the output device to be displayed to the user.
+class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin):
     def start(self):
-        self.getOutputDeviceManager().addOutputDevice(GcodeFilenameFormat()) #Since this class is also an output device, we can just register ourselves.
-        #You could also add more than one output devices here.
-        #For instance, you could listen to incoming connections and add an output device when a new device is discovered on the LAN.
+        self.getOutputDeviceManager().addOutputDevice(GcodeFilenameFormat())
 
-    ##  Called upon closing.
-    #
-    #   You can use this to break the connection with the device or service, and
-    #   you should unregister the output device to be displayed to the user.
     def stop(self):
-        self.getOutputDeviceManager().removeOutputDevice("gcode_filename_format") #Remove all devices that were added. In this case it's only one.
+        self.getOutputDeviceManager().removeOutputDevice("gcode_filename_format")
 
-##  Implements an OutputDevice that supports saving to arbitrary local files.
-class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to do the writing.
+# Inherit from OutputDevice class for writing filename format to file, and from Extension class to provide interface for setting filename format
+class GcodeFilenameFormat(OutputDevice, Extension):
     def __init__(self):
         super().__init__("gcode_filename_format")
 
@@ -60,8 +50,8 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         Application.getInstance().getPreferences().addPreference("gcode_filename_format/dialog_save_path", "")
         Application.getInstance().getPreferences().addPreference("gcode_filename_format/filename_format", DEFAULT_FILENAME_FORMAT)
 
-        self.setName(catalog.i18nc("@item:inmenu", "Gcode Filename Format")) #Human-readable name (you may want to internationalise this). Gets put in messages and such.
-        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Save Gcode")) #This is put on the save button.
+        self.setName(catalog.i18nc("@item:inmenu", "Gcode Filename Format"))
+        self.setShortDescription(catalog.i18nc("@action:button Preceded by 'Ready to'.", "Save Gcode"))
         self.setDescription(catalog.i18nc("@info:tooltip", "Save Gcode"))
         self.setIconName("save")
 
@@ -71,15 +61,6 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
         self.addMenuItem("Edit Format", self.editFormat)
         self.format_window = None
 
-    ##  Request the specified nodes to be written to a file.
-    #
-    #   \param nodes A collection of scene nodes that should be written to the
-    #   file.
-    #   \param file_name \type{string} A suggestion for the file name to write
-    #   to. Can be freely ignored if providing a file name makes no sense.
-    #   \param limit_mimetypes Should we limit the available MIME types to the
-    #   MIME types available to the currently active machine?
-    #   \param kwargs Keyword arguments.
     def requestWrite(self, nodes, file_name = None, limit_mimetypes = None, file_handler = None, **kwargs):
         application = cast(CuraApplication, Application.getInstance())
         machine_manager = application.getMachineManager()
@@ -231,6 +212,7 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         return tack_on
 
+    # Perform lookup and replacement of print setting values in filename format
     def parseFilenameFormat(self, filename_format, file_name, application, global_stack):
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
 
@@ -306,8 +288,8 @@ class GcodeFilenameFormat(OutputDevice, Extension): #We need an actual device to
 
         return component
 
+    # Get list of modified print settings using SliceInfoPlugin
     def getModifiedPrintSettings(self, application, global_stack):
-        # Get list of modified print settings using SliceInfoPlugin
         slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
         modified_print_settings = slice_info._getUserModifiedSettingKeys()
 
