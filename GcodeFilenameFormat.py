@@ -4,33 +4,29 @@ import os
 import sys
 import re
 
+from typing import cast
+
 from PyQt5.QtCore import QUrl
 from PyQt5.QtGui import QDesktopServices
+from PyQt5.QtQml import QQmlComponent, QQmlContext
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 
-from UM.Application import Application
 from UM.Logger import Logger
+from UM.Message import Message
+from UM.i18n import i18nCatalog
+from UM.Application import Application
 from UM.Mesh.MeshWriter import MeshWriter
 from UM.FileHandler.WriteFileJob import WriteFileJob
-from UM.Message import Message
-from UM.OutputDevice.OutputDevice import OutputDevice
 from UM.OutputDevice import OutputDeviceError
-from UM.i18n import i18nCatalog
+from UM.OutputDevice.OutputDevice import OutputDevice
 from UM.OutputDevice.OutputDevicePlugin import OutputDevicePlugin
+from UM.Extension import Extension
+from UM.PluginRegistry import PluginRegistry
 
 from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
 
-from typing import cast
-from collections import OrderedDict
-
 catalog = i18nCatalog("uranium")
-
-import os.path
-from PyQt5.QtCore import QUrl
-from PyQt5.QtQml import QQmlComponent, QQmlContext
-from UM.Extension import Extension
-from UM.PluginRegistry import PluginRegistry
 
 DEFAULT_FILENAME_FORMAT = "[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]F bed [material_bed_temperature]F"
 
