@@ -1,8 +1,8 @@
 {
     "name": "Gcode Filename Format",
     "author": "Robert Gomez, Jr.",
-    "version": "0.5",
+    "version": "1.0",
     "api": "7.0",
-    "description": "Add print settings in gcode filenames",
+    "description": "Cura plugin for specifying filename format with print settings",
     "catalog": "uranium"
 }
