@@ -2,19 +2,27 @@
 
 Cura plugin for specifying filename format with print settings
 
-Example:  
-PI3MK3M_paperclip Generic PLA lh 0.2mm if 20% ext1 200C bed 60C.gcode
+Example:
 
-Default filename format:  
-[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+    PI3MK3M_paperclip Generic PLA lh 0.2mm if 20% ext1 200C bed 60C.gcode
 
-## Reqiurements
+Default filename format:
+
+    [base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+
+## Requirements
 Cura 4.4 or later
 
 ## Usage
 1. Specify filename format using Extensions -> Gcode Filename Format -> Edit Format
+
+    ![Edit Format Dialog](images/edit-format-dialog.png)
+
 2. Slice object
 3. Select Save Gcode button (instead of default Save to File button)
+
+    ![Edit Format Dialog](images/save-gcode-button.png)
+
 4. Futher modify formatted filename as desired in the save dialog
 5. Select Save
 
