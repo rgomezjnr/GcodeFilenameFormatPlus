@@ -48,15 +48,21 @@ Besides .gcode, the plugin will also work other file types such as .3mf and .stl
 The following are standard options from Cura. Examples include:
 
 - layer_height - height of each layer (mm)
+- machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
+- line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
+- wall thickness - thickness of shell walls (mm)
 - infill_sparse_density - infill percentage (%)
+- infill_pattern - infill pattern e.g grid, lines, triangles
+- top_bottom_pattern - pattern of the top and bottom layers e.g. lines, concentric, zig zag
+- material_diameter - filament size e.g. 1.75 mm, 3 mm
 - material_print_temperature - material/nozzle temperature (°C)
 - material_bed_temperature - build plate temperature (°C)
-- material_diameter - filament size e.g. 1.75 mm, 3 mm
-- line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
+- material_flow - extruded material flow rate (%)
 - speed_print - print speed (mm/s)
+- retraction_combing - combing mode
 - magic_spiralize - spiralize outer contour, vase mode
 
-For the full list please refer to [fdmprinter.def.json.pot](https://github.com/Ultimaker/Cura/blob/6091c67dee7b9a4fc7b066e59db2b76572398909/resources/i18n/fdmprinter.def.json.pot)
+For the full list please refer to [fdmprinter.def.json.pot](https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot)
 
 ## Source code
 https://github.com/rgomezjnr/GcodeFilenameFormat
