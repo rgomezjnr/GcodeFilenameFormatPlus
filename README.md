@@ -13,6 +13,17 @@ Default filename format:
 ## Requirements
 Cura 4.4 or later
 
+## Installation
+1. Clone repository (or [download repository .zip](https://github.com/rgomezjnr/GcodeFilenameFormat/archive/master.zip))
+```
+git clone https://github.com/rgomezjnr/GcodeFilenameFormat.git
+```
+2. Move GcodeFilenameFormat folder to Cura plugins folder
+- Windows: C:\Users\\%USERNAME%\AppData\Roaming\cura\4.4\plugins
+- Mac: $User/Library/Application\ Support/Cura/4.4/plugins
+- Linux: $HOME/.local/share/cura/4.4/plugins
+3. Launch Cura
+
 ## Usage
 1. Specify filename format using Extensions -> Gcode Filename Format -> Edit Format
 
