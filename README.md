@@ -4,11 +4,11 @@ Cura plugin for specifying filename format with print settings
 
 Example:
 
-    PI3MK3M_paperclip Generic PLA lh 0.2mm if 20% ext1 200C bed 60C.gcode
+    PI3MK3M_paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
 
 Default filename format:
 
-    [base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+    [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
 
 ## Requirements
 Cura 4.4 or later
@@ -42,11 +42,6 @@ Besides .gcode, the plugin will also work other file types such as .3mf and .stl
 ## Format options
 
 - base_name - the initial output filename from the object name and Cura's "Add machine prefix to job name" setting
-- brand - the brand of the filament e.g. Generic, Prusa, MatterHackers, eSun, etc.
-- material - material type e.g. PLA, PETG, ABS, etc.
-
-The following are standard options from Cura. Examples include:
-
 - layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
 - line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
@@ -54,6 +49,8 @@ The following are standard options from Cura. Examples include:
 - infill_sparse_density - infill percentage (%)
 - infill_pattern - infill pattern e.g grid, lines, triangles
 - top_bottom_pattern - pattern of the top and bottom layers e.g. lines, concentric, zig zag
+- brand - the brand of the filament e.g. Generic, Prusa, MatterHackers, eSun, etc.
+- material - material type e.g. PLA, PETG, ABS, etc.
 - material_diameter - filament size e.g. 1.75 mm, 3 mm
 - material_print_temperature - material/nozzle temperature (°C)
 - material_bed_temperature - build plate temperature (°C)

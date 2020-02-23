@@ -28,7 +28,7 @@ from cura.Settings.ExtruderManager import ExtruderManager
 
 catalog = i18nCatalog("uranium")
 
-DEFAULT_FILENAME_FORMAT = "[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
+DEFAULT_FILENAME_FORMAT = "[base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
 
 class GcodeFilenameFormatDevicePlugin(OutputDevicePlugin):
     def start(self):
