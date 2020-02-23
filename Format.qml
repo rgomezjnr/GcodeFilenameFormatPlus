@@ -37,7 +37,7 @@ UM.Dialog
     {
         text: "Default"
         iconName: "dialog-default"
-        onClicked: textfield.text = "[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]F bed [material_bed_temperature]F"
+        onClicked: textfield.text = "[base_name] [brand] [material] lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
     }
 
     rightButtons: Button
