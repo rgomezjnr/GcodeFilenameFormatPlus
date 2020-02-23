@@ -47,7 +47,7 @@ Besides .gcode, the plugin will also work other file types such as .3mf and .stl
 
 The following are standard options from Cura. Examples include:
 
-- layer_height - height of each layer (mm)
+- layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
 - line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
 - wall thickness - thickness of shell walls (mm)
