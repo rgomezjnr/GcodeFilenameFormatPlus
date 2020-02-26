@@ -74,14 +74,12 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
         self.getModifiedPrintSettings(application, global_stack)
 
-        # Set up and display file dialog
         dialog = QFileDialog()
 
         dialog.setWindowTitle(catalog.i18nc("@title:window", "Save to File"))
         dialog.setFileMode(QFileDialog.AnyFile)
         dialog.setAcceptMode(QFileDialog.AcceptSave)
 
-        # Ensure platform never ask for overwrite confirmation since we do this ourselves
         dialog.setOption(QFileDialog.DontConfirmOverwrite)
 
         if sys.platform == "linux" and "KDE_FULL_SESSION" in os.environ:
@@ -112,7 +110,6 @@ class GcodeFilenameFormat(OutputDevice, Extension):
             Logger.log("e", "There are no file types available to write with!")
             raise OutputDeviceError.WriteRequestFailedError(catalog.i18nc("@info:warning", "There are no file types available to write with!"))
 
-        # Find the first available preferred mime type
         preferred_mimetype = None
         for mime_type in preferred_mimetype_list:
             if any(ft["mime_type"] == mime_type for ft in file_types):
@@ -130,11 +127,9 @@ class GcodeFilenameFormat(OutputDevice, Extension):
                 if file_name:
                     file_name += "." + item["extension"]
 
-        # CURA-6411: This code needs to be before dialog.selectFile and the filters, because otherwise in macOS (for some reason) the setDirectory call doesn't work.
         stored_directory = Application.getInstance().getPreferences().getValue("gcode_filename_format/dialog_save_path")
         dialog.setDirectory(stored_directory)
 
-        # Add the file name before adding the extension to the dialog
         if file_name is not None:
             dialog.selectFile(file_name)
 
@@ -151,7 +146,6 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         selected_type = file_types[filters.index(dialog.selectedNameFilter())]
         Application.getInstance().getPreferences().setValue("gcode_filename_format/last_used_type", selected_type["mime_type"])
 
-        # Get file name from file dialog
         file_name = dialog.selectedFiles()[0]
         Logger.log("d", "Writing to [%s]..." % file_name)
 
@@ -162,7 +156,6 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
         self.writeStarted.emit(self)
 
-        # Actually writing file
         if file_handler:
             file_writer = file_handler.getWriter(selected_type["id"])
         else:
@@ -182,7 +175,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
             job = WriteFileJob(file_writer, stream, nodes, mode)
             job.setFileName(file_name)
-            job.setAddToRecentFiles(True)  # The file will be added into the "recent files" list upon success
+            job.setAddToRecentFiles(True)
             job.progress.connect(self._onJobProgress)
             job.finished.connect(self._onWriteJobFinished)
 
@@ -259,7 +252,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
         try:
             job.getStream().close()
-        except (OSError, PermissionError): #When you don't have the rights to do the final flush or the disk is full.
+        except (OSError, PermissionError):
             message = Message(catalog.i18nc("@info:status", "Something went wrong saving to <filename>{0}</filename>: <message>{1}</message>").format(job.getFileName(), str(job.getError())), title = catalog.i18nc("@info:title", "Error"))
             message.show()
             self.writeError.emit(self)
@@ -269,7 +262,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
             QDesktopServices.openUrl(QUrl.fromLocalFile(message._folder))
 
     def editFormat(self):
-        if not self.format_window: #Don't create more than one.
+        if not self.format_window:
             self.format_window = self._createDialogue()
         self.format_window.show()
 
