@@ -215,11 +215,8 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings = dict()
 
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
-        Logger.log("d", "tokens = %s", tokens)
+
         for t in tokens:
-            Logger.log("d", "t = %s", first_extruder_stack.material.getMetaData().get(t, ""))
-            Logger.log("d", "t = %s", global_stack.userChanges.getProperty(t, "value"))
-            Logger.log("d", "t = %s", first_extruder_stack.getProperty(t, "value"))
             stack1 = first_extruder_stack.material.getMetaData().get(t, "")
             stack2 = global_stack.userChanges.getProperty(t, "value")
             stack3 = first_extruder_stack.getProperty(t, "value")
@@ -232,8 +229,6 @@ class GcodeFilenameFormat(OutputDevice, Extension):
                 print_settings[t] = stack3
             else:
                 print_settings[t] = None
-
-        Logger.log("d", "print_settings = %s", print_settings)
 
         print_settings["base_name"] = file_name
 
@@ -289,9 +284,5 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
         modified_print_settings = slice_info._getUserModifiedSettingKeys()
 
-        Logger.log("d", "modified_print_settings = %s", modified_print_settings)
-
         machine_id = global_stack.definition.getId()
         manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
-        Logger.log("d", "machine_id = %s", machine_id)
-        Logger.log("d", "manufacturer = %s", manufacturer)
