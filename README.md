@@ -14,6 +14,10 @@ Default filename format:
 Cura 4.4 or later
 
 ## Installation
+### Preferred method
+Install plugin from [Ultimaker Marketplace](https://marketplace.ultimaker.com/app/cura/plugins/rgomezjnr/GcodeFilenameFormat)
+
+### Alternatively
 1. Clone repository (or [download repository .zip](https://github.com/rgomezjnr/GcodeFilenameFormat/archive/master.zip))
 ```
 git clone https://github.com/rgomezjnr/GcodeFilenameFormat.git
