@@ -8,28 +8,16 @@ import QtQuick.Controls 1.1
 UM.Dialog
 {
     id: base
-    title: "Gcode Filename Format"
+    title: "Gcode Filename Format - Edit Format"
     width: 600 * screenScaleFactor
-    height: 90 * screenScaleFactor
+    height: 70 * screenScaleFactor
     minimumWidth: 300 * screenScaleFactor
-    minimumHeight: 90 * screenScaleFactor
-
-    Label
-    {
-        id: label
-        text: "Edit Format"
-        anchors.top: base.top
-        anchors.topMargin: 10 * screenScaleFactor
-        anchors.left: base.left
-        anchors.leftMargin: 10 * screenScaleFactor
-    }
+    minimumHeight: 70 * screenScaleFactor
 
     TextField
     {
         id: textfield
         text: UM.Preferences.getValue("gcode_filename_format/filename_format")
-        anchors.top: label.bottom
-        anchors.topMargin: 5 * screenScaleFactor
         width: base.width - 15 * screenScaleFactor
     }
 
