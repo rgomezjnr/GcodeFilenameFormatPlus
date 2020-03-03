@@ -9,18 +9,13 @@ UM.Dialog
 {
     id: base
     title: "Gcode Filename Format - Help"
-    width: 700 * screenScaleFactor
+    width: 755 * screenScaleFactor
     height: 610 * screenScaleFactor
-    //minimumWidth: 300 * screenScaleFactor
-    // minimumHeight: 90 * screenScaleFactor
+    minimumWidth: 700 * screenScaleFactor
 
     ScrollView {
         width: parent.width
         height: parent.height
-        //clip: true
-        // ScrollBar.horizontal: ScrollBar {
-        //     ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-        // }
 
         Text
         {
