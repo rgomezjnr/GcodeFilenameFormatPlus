@@ -52,7 +52,7 @@ UM.Dialog
                     <li>Select Save</li>
                 </ol>
                 <br>
-                Besides .gcode, the plugin will also work other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
+                Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
                 <br>
                 <h1>Format options</h1>
                 <ul>

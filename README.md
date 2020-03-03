@@ -41,7 +41,7 @@ git clone https://github.com/rgomezjnr/GcodeFilenameFormat.git
 4. Futher modify formatted filename as desired in the save dialog
 5. Select Save
 
-Besides .gcode, the plugin will also work other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
+Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
 
 ## Format options
 
