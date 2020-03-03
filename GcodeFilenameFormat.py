@@ -56,6 +56,8 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         self.setMenuName("Gcode Filename Format")
         self.addMenuItem("Edit Format", self.editFormat)
         self.format_window = None
+        self.addMenuItem("Help", self.help)
+        self.help_window = None
 
     def requestWrite(self, nodes, file_name = None, limit_mimetypes = None, file_handler = None, **kwargs):
         application = cast(CuraApplication, Application.getInstance())
@@ -268,6 +270,17 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
     def _createDialogue(self):
         qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "Format.qml")
+        component = Application.getInstance().createQmlComponent(qml_file_path)
+
+        return component
+
+    def help(self):
+        if not self.help_window:
+            self.help_window = self._createHelpDialog()
+        self.help_window.show()
+
+    def _createHelpDialog(self):
+        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "Help.qml")
         component = Application.getInstance().createQmlComponent(qml_file_path)
 
         return component
