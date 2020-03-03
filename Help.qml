@@ -24,16 +24,15 @@ UM.Dialog
 
         Text
         {
-            width: base.width
-            wrapMode: Text.WordWrap
             onLinkActivated: Qt.openUrlExternally(link)
 
             text:
                 "<h1>Example</h1>
-                <q>PI3MK3M_paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode</q>
+                <p>PI3MK3M_paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode</p>
                 <br>
                 <h1>Default filename format</h1>
-                <q>[base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C</q>
+                <p>[base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]%<br>
+                ext1 [material_print_temperature]C bed [material_bed_temperature]C</p>
                 <br>
                 <h1>Usage</h1>
                 <ol>
@@ -52,7 +51,8 @@ UM.Dialog
                     <li>Select Save</li>
                 </ol>
                 <br>
-                Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
+                <p>Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the<br>
+                available file types in the save dialog.</p>
                 <br>
                 <h1>Format options</h1>
                 <ul>
@@ -75,7 +75,7 @@ UM.Dialog
                     <li>magic_spiralize - spiralize outer contour, vase mode</li>
                 </ul>
                 <br>
-                For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a>
+                <p>For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a></p>
                 <br>"
         }
     }
