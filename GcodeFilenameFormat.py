@@ -22,6 +22,7 @@ from UM.OutputDevice.OutputDevice import OutputDevice
 from UM.OutputDevice.OutputDevicePlugin import OutputDevicePlugin
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
+from UM.Qt.Duration import DurationFormat
 
 from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
@@ -63,6 +64,29 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         application = cast(CuraApplication, Application.getInstance())
         machine_manager = application.getMachineManager()
         global_stack = machine_manager.activeMachine
+        print_information = application.getPrintInformation()
+
+        job_name = print_information.jobName
+        printer_name = global_stack.getName()
+        print_time = print_information.currentPrintTime.getDisplayString(DurationFormat.Format.ISO8601)
+        print_time_days = print_information.currentPrintTime.days
+        print_time_hours = print_information.currentPrintTime.hours
+        print_time_minutes = print_information.currentPrintTime.minutes
+        print_time_seconds = print_information.currentPrintTime.seconds
+        material_weight = print_information.materialWeights
+        material_length = print_information.materialLengths
+        material_cost = print_information.materialCosts
+
+        Logger.log("d", "job_name = %s", job_name)
+        Logger.log("d", "printer_name = %s", printer_name)
+        Logger.log("d", "print_time = %s", print_time)
+        Logger.log("d", "print_time_days = %s", print_time_days)
+        Logger.log("d", "print_time_hours = %s", print_time_hours)
+        Logger.log("d", "print_time_minutes = %s", print_time_minutes)
+        Logger.log("d", "print_time_seconds = %s", print_time_seconds)
+        Logger.log("d", "material_weight = %s", material_weight)
+        Logger.log("d", "material_length = %s", material_length)
+        Logger.log("d", "material_cost = %s", material_cost)
 
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
 
