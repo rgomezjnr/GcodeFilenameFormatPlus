@@ -1,7 +1,7 @@
 {
     "name": "Gcode Filename Format",
     "author": "Robert Gomez, Jr.",
-    "version": "1.1.1",
+    "version": "1.2.1-rc1",
     "api": 7,
     "supported_sdk_versions": ["7.0.0", "7.1.0"],
     "description": "Cura plugin for specifying filename format with print settings",
