@@ -215,6 +215,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_time = print_information.currentPrintTime.getDisplayString(DurationFormat.Format.ISO8601)
         print_time_days = print_information.currentPrintTime.days
         print_time_hours = print_information.currentPrintTime.hours
+        print_time_hours_all = print_time_days * 24 + print_time_hours
         print_time_minutes = print_information.currentPrintTime.minutes
         print_time_seconds = print_information.currentPrintTime.seconds
         material_weight = print_information.materialWeights
@@ -243,6 +244,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["print_time"] = print_time
         print_settings["print_time_days"] = print_time_days
         print_settings["print_time_hours"] = print_time_hours
+        print_settings["print_time_hours_all"] = print_time_hours_all
         print_settings["print_time_minutes"] = print_time_minutes
         print_settings["print_time_seconds"] = print_time_seconds
         print_settings["material_weight"] = round(float(material_weight[0]), 2)
