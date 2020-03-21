@@ -9,7 +9,7 @@ UM.Dialog
 {
     id: base
     title: "Gcode Filename Format - Help"
-    width: 755 * screenScaleFactor
+    width: 800 * screenScaleFactor
     height: 610 * screenScaleFactor
     minimumWidth: 700 * screenScaleFactor
 
