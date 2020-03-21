@@ -46,6 +46,8 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 ## Format options
 
 - base_name - the initial output filename from the object name and Cura's "Add machine prefix to job name" setting
+- job_name - same as base_name
+- printer_name - printer manufacturer and model
 - layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
 - line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
@@ -62,6 +64,15 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - speed_print - print speed (mm/s)
 - retraction_combing - combing mode
 - magic_spiralize - spiralize outer contour, vase mode
+- print_time - total print time in HHMMSS
+- print_time_days - print time in days
+- print_time_hours - print time in hours
+- print_time_hours_all - print_time_days * 24 + print_time_hours
+- print_time_minutes - print time in minutes
+- print_time_seconds - print time in seconds
+- material_weight - printed material weight (g)
+- material_length - printed material length (m)
+- material_cost - printed material cost
 
 For the full list please refer to [fdmprinter.def.json.pot](https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot)
 

@@ -52,6 +52,8 @@ UM.Dialog
                 <h1>Format options</h1>
                 <ul>
                     <li>base_name - the initial output filename from the object name and Cura's \"Add machine prefix to job name\" setting</li>
+                    <li>job_name - same as base_name</li>
+                    <li>printer_name - printer manufacturer and model</li>
                     <li>layer_height - layer height/thickness, vertical resolution (mm)</li>
                     <li>machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
                     <li>line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
@@ -68,6 +70,15 @@ UM.Dialog
                     <li>speed_print - print speed (mm/s)</li>
                     <li>retraction_combing - combing mode</li>
                     <li>magic_spiralize - spiralize outer contour, vase mode</li>
+                    <li>print_time - total print time in HHMMSS</li>
+                    <li>print_time_days - print time in days</li>
+                    <li>print_time_hours - print time in hours</li>
+                    <li>print_time_hours_all - print_time_days * 24 + print_time_hours</li>
+                    <li>print_time_minutes - print time in minutes</li>
+                    <li>print_time_seconds - print time in seconds</li>
+                    <li>material_weight - printed material weight (g)</li>
+                    <li>material_length - printed material length (m)</li>
+                    <li>material_cost - printed material cost</li>
                 </ul>
                 <br>
                 <p>For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a></p>
