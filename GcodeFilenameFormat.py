@@ -247,8 +247,8 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["print_time_hours_all"] = print_time_hours_all
         print_settings["print_time_minutes"] = print_time_minutes
         print_settings["print_time_seconds"] = print_time_seconds
-        print_settings["material_weight"] = round(float(material_weight[0]), 2)
-        print_settings["material_length"] = material_length
+        print_settings["material_weight"] = round(float(material_weight[0]), 1)
+        print_settings["material_length"] = round(float(material_length[0]), 1)
         print_settings["material_cost"] = material_cost
 
         for setting, value in print_settings.items():
