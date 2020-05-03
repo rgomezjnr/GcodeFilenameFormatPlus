@@ -7,6 +7,5 @@ def getMetaData():
 
 def register(app):
     return {
-        "output_device": GcodeFilenameFormat.GcodeFilenameFormatDevicePlugin(),
         "extension": GcodeFilenameFormat.GcodeFilenameFormat()
     }
