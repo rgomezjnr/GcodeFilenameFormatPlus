@@ -102,7 +102,7 @@ class GcodeFilenameFormat(Extension, QObject):
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
 
         file_name = self.parseFilenameFormat(filename_format, file_name, application, global_stack)
-        file_name = print_information._abbr_machine + "_" + print_information.baseName + file_name
+        file_name = print_information._abbr_machine + "_" + print_information.baseName + " " + file_name
         Logger.log("d", "parsed file_name = %s", file_name)
 
         self._print_information._job_name = file_name
