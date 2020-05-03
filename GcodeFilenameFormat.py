@@ -1,7 +1,7 @@
 # LGPLv3
 
-import os
 import re
+import os.path
 
 from typing import cast
 
