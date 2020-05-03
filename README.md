@@ -8,7 +8,7 @@ Example:
 
 Default filename format:
 
-    [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+    [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
 
 ## Requirements
 Cura 4.4 or later
@@ -34,19 +34,12 @@ git clone https://github.com/rgomezjnr/GcodeFilenameFormat.git
     ![Edit Format Dialog](images/edit-format-dialog.png)
 
 2. Slice object
-3. Select Save Gcode button (instead of default Save to File button)
-
-    ![Edit Format Dialog](images/save-gcode-button.png)
-
-4. Futher modify formatted filename as desired in the save dialog
-5. Select Save
+3. Save .gcode or send job to printer
 
 Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
 
 ## Format options
 
-- base_name - the initial output filename from the object name and Cura's "Add machine prefix to job name" setting
-- job_name - same as base_name
 - printer_name - printer manufacturer and model
 - layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
