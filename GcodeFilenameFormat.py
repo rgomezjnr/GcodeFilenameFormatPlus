@@ -208,10 +208,12 @@ class GcodeFilenameFormat(OutputDevice, Extension):
     def parseFilenameFormat(self, filename_format, file_name, application, global_stack):
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
         print_information = application.getPrintInformation()
+        machine_manager = application.getMachineManager()
         print_settings = dict()
 
         job_name = print_information.jobName
         printer_name = global_stack.getName()
+        profile_name = machine_manager.activeQualityOrQualityChangesName
         print_time = print_information.currentPrintTime.getDisplayString(DurationFormat.Format.ISO8601)
         print_time_days = print_information.currentPrintTime.days
         print_time_hours = print_information.currentPrintTime.hours
@@ -241,6 +243,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["base_name"] = file_name
         print_settings["job_name"] = job_name
         print_settings["printer_name"] = printer_name
+        print_settings["profile_name"] = profile_name
         print_settings["print_time"] = print_time
         print_settings["print_time_days"] = print_time_days
         print_settings["print_time_hours"] = print_time_hours
