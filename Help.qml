@@ -54,6 +54,7 @@ UM.Dialog
                     <li>base_name - the initial output filename from the object name and Cura's \"Add machine prefix to job name\" setting</li>
                     <li>job_name - same as base_name</li>
                     <li>printer_name - printer manufacturer and model</li>
+                    <li>profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft</li>
                     <li>layer_height - layer height/thickness, vertical resolution (mm)</li>
                     <li>machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
                     <li>line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
