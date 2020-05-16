@@ -257,7 +257,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         for setting, value in print_settings.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))
 
-        filename_format = re.sub('[^A-Za-z0-9._\-%°$£€ ]+', '', filename_format)
+        filename_format = re.sub('[^A-Za-z0-9._\-%°$£€\[\]\(\)\| ]+', '', filename_format)
         Logger.log("d", "filename_format = %s", filename_format)
 
         return filename_format
