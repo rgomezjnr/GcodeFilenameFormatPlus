@@ -23,9 +23,11 @@ from UM.OutputDevice.OutputDevicePlugin import OutputDevicePlugin
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
 from UM.Qt.Duration import DurationFormat
+from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
 
 from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
+from cura.UI.ObjectsModel import ObjectsModel
 
 catalog = i18nCatalog("uranium")
 
@@ -223,6 +225,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         material_weight = print_information.materialWeights
         material_length = print_information.materialLengths
         material_cost = print_information.materialCosts
+        object_count = self.getObjectCount()
 
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
@@ -253,6 +256,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["material_weight"] = int(material_weight[0])
         print_settings["material_length"] = round(float(material_length[0]), 1)
         print_settings["material_cost"] = round(float(material_cost[0]), 2)
+        print_settings["object_count"] = object_count
 
         for setting, value in print_settings.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))
@@ -320,3 +324,14 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
         machine_id = global_stack.definition.getId()
         manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
+
+    def getObjectCount(self) -> int:
+        count = 0
+
+        for node in DepthFirstIterator(Application.getInstance().getController().getScene().getRoot()):
+            if not ObjectsModel()._shouldNodeBeHandled(node):
+                continue
+
+            count += 1
+
+        return count
