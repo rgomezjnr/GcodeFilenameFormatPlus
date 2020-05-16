@@ -49,6 +49,7 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - job_name - same as base_name
 - printer_name - printer manufacturer and model
 - profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft
+- object_count - number of objects on the build plate
 - layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
 - line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
