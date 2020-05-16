@@ -77,7 +77,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         if self._writing:
             raise OutputDeviceError.DeviceBusyError()
 
-        self.getModifiedPrintSettings(application, global_stack)
+        #self.getModifiedPrintSettings(application, global_stack)
 
         dialog = QFileDialog()
 
