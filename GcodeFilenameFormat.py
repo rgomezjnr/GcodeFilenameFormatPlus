@@ -213,6 +213,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_information = application.getPrintInformation()
         machine_manager = application.getMachineManager()
         print_settings = dict()
+        multi_extruder_settings = dict()
 
         job_name = print_information.jobName
         printer_name = global_stack.getName()
@@ -232,6 +233,18 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
         for t in tokens:
+            all_values = ExtruderManager.getInstance().getAllExtruderSettings(t,"value")
+            all_types = ExtruderManager.getInstance().getAllExtruderSettings(t,"type")
+
+            Logger.log("d", "t = %s", t)
+            Logger.log("d", "all_values = %s", all_values)
+            Logger.log("d", "all_types = %s", all_types)
+
+            for idx, v in enumerate(all_values):
+                multi_extruder_settings[t + str(idx + 1)] = v
+
+            Logger.log("d", "multi_extruder_settings = %s", multi_extruder_settings)
+
             stack1 = first_extruder_stack.material.getMetaData().get(t, "")
             stack2 = global_stack.userChanges.getProperty(t, "value")
             stack3 = first_extruder_stack.getProperty(t, "value")
