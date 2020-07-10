@@ -233,15 +233,17 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
         for t in tokens:
-            all_values = ExtruderManager.getInstance().getAllExtruderSettings(t,"value")
-            all_types = ExtruderManager.getInstance().getAllExtruderSettings(t,"type")
+            all_values = ExtruderManager.getInstance().getAllExtruderSettings(t[:-1],"value")
 
             Logger.log("d", "t = %s", t)
             Logger.log("d", "all_values = %s", all_values)
-            Logger.log("d", "all_types = %s", all_types)
 
-            for idx, v in enumerate(all_values):
-                multi_extruder_settings[t + str(idx + 1)] = v
+            try:
+                multi_extruder_settings[t] = all_values[int(t[-1]) - 1]
+            except ValueError:
+                pass
+            except IndexError:
+                pass
 
             Logger.log("d", "multi_extruder_settings = %s", multi_extruder_settings)
 
@@ -273,6 +275,9 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["material_cost"] = round(float(material_cost[0]), 2)
         print_settings["object_count"] = object_count
         print_settings["cura_version"] = cura_version
+
+        print_settings.update(multi_extruder_settings)
+        Logger.log("d", "print_settings = %s", print_settings)
 
         for setting, value in print_settings.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))
