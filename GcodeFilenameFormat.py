@@ -210,6 +210,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
     # Perform lookup and replacement of print setting values in filename format
     def parseFilenameFormat(self, filename_format, file_name, application, global_stack):
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
+        active_extruder_stacks = ExtruderManager.getInstance().getActiveExtruderStacks()
         print_information = application.getPrintInformation()
         machine_manager = application.getMachineManager()
         print_settings = dict()
@@ -233,19 +234,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
         for t in tokens:
-            all_values = ExtruderManager.getInstance().getAllExtruderSettings(t[:-1],"value")
-
             Logger.log("d", "t = %s", t)
-            Logger.log("d", "all_values = %s", all_values)
-
-            try:
-                multi_extruder_settings[t] = all_values[int(t[-1]) - 1]
-            except ValueError:
-                pass
-            except IndexError:
-                pass
-
-            Logger.log("d", "multi_extruder_settings = %s", multi_extruder_settings)
 
             stack1 = first_extruder_stack.material.getMetaData().get(t, "")
             stack2 = global_stack.userChanges.getProperty(t, "value")
@@ -259,6 +248,38 @@ class GcodeFilenameFormat(OutputDevice, Extension):
                 print_settings[t] = stack3
             else:
                 print_settings[t] = None
+
+            #user_change_property = global_stack.userChanges.getProperty(t, "value")
+            #Logger.log("d", "user_change_property = %s", user_change_property)
+
+            #if user_change_property is not None and user_change_property is not "":
+            #    print_settings[t] = user_change_property
+
+            for a in active_extruder_stacks:
+                extruder_position = a.position
+                Logger.log("d", "extruder_position = %s", extruder_position)
+
+                try:
+                    Logger.log("d", "t[:-1] = %s", t[:-1])
+                    stack1 = a.material.getMetaData().get(t[:-1], "")
+                    stack2 = a.getProperty(t[:-1], "value")
+                    Logger.log("d", "stack1 = %s", stack1)
+                    Logger.log("d", "stack2 = %s", stack2)
+
+                    if stack1 is not None and stack1 is not "" and stack1 != 0 and extruder_position + 1 == int(t[-1]):
+                        Logger.log("d", "stack1 multi_extruder_settings[%s] = %s", t, stack1)
+                        multi_extruder_settings[t] = stack1
+                    elif stack2 is not None and stack2 is not "" and stack2 != 0 and extruder_position + 1 == int(t[-1]):
+                        Logger.log("d", "stack2 multi_extruder_settings[%s] = %s", t, stack2)
+                        multi_extruder_settings[t] = stack2
+                    #else:
+                    #    Logger.log("d", "multi_extruder_settings[%s] = None", t)
+                    #    #print_settings[t] = None
+                    #    multi_extruder_settings[t] = None
+                except TypeError:
+                    pass
+                except ValueError:
+                    pass
 
         print_settings["base_name"] = file_name
         print_settings["job_name"] = job_name
