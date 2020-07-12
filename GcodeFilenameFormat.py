@@ -241,11 +241,20 @@ class GcodeFilenameFormat(OutputDevice, Extension):
             stack3 = first_extruder_stack.getProperty(t, "value")
 
             if stack1 is not None and stack1 is not "":
-                print_settings[t] = stack1
+                if type(stack1) is float:
+                    print_settings[t] = round(stack1, 2)
+                else:
+                    print_settings[t] = stack1
             elif stack2 is not None and stack2 is not "":
-                print_settings[t] = stack2
+                if type(stack2) is float:
+                    print_settings[t] = round(stack2, 2)
+                else:
+                    print_settings[t] = stack2
             elif stack3 is not None and stack3 is not "":
-                print_settings[t] = stack3
+                if type(stack3) is float:
+                    print_settings[t] = round(stack3, 2)
+                else:
+                    print_settings[t] = stack3
             else:
                 print_settings[t] = None
 
@@ -268,10 +277,17 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
                     if stack1 is not None and stack1 is not "" and stack1 != 0 and extruder_position + 1 == int(t[-1]):
                         Logger.log("d", "stack1 multi_extruder_settings[%s] = %s", t, stack1)
-                        multi_extruder_settings[t] = stack1
+                        if type(stack1) is float:
+                            multi_extruder_settings[t] = round(stack1, 2)
+                        else:
+                            multi_extruder_settings[t] = stack1
+                        multi_extruder_settings[t] = round(stack1, 2)
                     elif stack2 is not None and stack2 is not "" and stack2 != 0 and extruder_position + 1 == int(t[-1]):
                         Logger.log("d", "stack2 multi_extruder_settings[%s] = %s", t, stack2)
-                        multi_extruder_settings[t] = stack2
+                        if type(stack2) is float:
+                            multi_extruder_settings[t] = round(stack2, 2)
+                        else:
+                            multi_extruder_settings[t] = stack2
                     #else:
                     #    Logger.log("d", "multi_extruder_settings[%s] = None", t)
                     #    #print_settings[t] = None
