@@ -79,6 +79,17 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 
 For the full list please refer to [fdmprinter.def.json.pot](https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot)
 
+### Multiple extruder options
+For printers with multiple extruders, individual extruder settings can be specified by appending the extruder number to the option.
+
+For example, the following format:
+
+    [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
+
+will result in the following filename:
+
+    paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
+
 ## Source code
 https://github.com/rgomezjnr/GcodeFilenameFormat
 

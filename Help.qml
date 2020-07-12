@@ -85,6 +85,19 @@ UM.Dialog
                 </ul>
                 <br>
                 <p>For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a></p>
+                <br>
+                <h2>Multiple extruder options</h2>
+                <p>For printers with multiple extruders, individual extruder settings can be specified by appending<br>
+                the extruder number to the option.</p>
+                <br>
+                <p>For example, the following format:</p>
+                <br>
+                <p>[base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm<br>
+                ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm</p>
+                <br>
+                <p>will result in the following filename:</p>
+                <br>
+                <p>paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
                 <br>"
         }
     }
