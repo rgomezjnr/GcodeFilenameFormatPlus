@@ -64,6 +64,7 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - material_print_temperature - material/nozzle temperature (°C)
 - material_bed_temperature - build plate temperature (°C)
 - material_flow - extruded material flow rate (%)
+- color_name - material color
 - speed_print - print speed (mm/s)
 - retraction_combing - combing mode
 - magic_spiralize - spiralize outer contour, vase mode

@@ -70,6 +70,7 @@ UM.Dialog
                     <li>material_print_temperature - material/nozzle temperature (°C)</li>
                     <li>material_bed_temperature - build plate temperature (°C)</li>
                     <li>material_flow - extruded material flow rate (%)</li>
+                    <li>color_name - material color</li>
                     <li>speed_print - print speed (mm/s)</li>
                     <li>retraction_combing - combing mode</li>
                     <li>magic_spiralize - spiralize outer contour, vase mode</li>
