@@ -6,7 +6,7 @@ import re
 
 from typing import cast
 
-from PyQt5.QtCore import QUrl
+from PyQt5.QtCore import QUrl, Qt, QDate, QDateTime
 from PyQt5.QtGui import QDesktopServices
 from PyQt5.QtQml import QQmlComponent, QQmlContext
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
@@ -253,6 +253,25 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["material_weight"] = int(material_weight[0])
         print_settings["material_length"] = round(float(material_length[0]), 1)
         print_settings["material_cost"] = round(float(material_cost[0]), 2)
+
+        # Gcode creation timestamp fields
+        date = QDate.currentDate().toString(format=Qt.ISODate)
+        time = QDateTime.currentDateTime().toString("HH-mm")
+        datetime = QDateTime.currentDateTime().toString(format=Qt.ISODate)
+        year =  QDateTime.currentDateTime().toString("yyyy")
+        month = QDateTime.currentDateTime().toString("MM")
+        day = QDateTime.currentDateTime().toString("dd")
+        hour = QDateTime.currentDateTime().toString("HH")
+        minute = QDateTime.currentDateTime().toString("mm")
+
+        print_settings["date"] = date
+        print_settings["time"] = time
+        print_settings["datetime"] = datetime
+        print_settings["year"] = year
+        print_settings["month"] = month
+        print_settings["day"] = day
+        print_settings["hour"] = hour
+        print_settings["minute"] = minute
 
         for setting, value in print_settings.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))

@@ -47,6 +47,14 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 
 - base_name - the initial output filename from the object name and Cura's "Add machine prefix to job name" setting
 - job_name - same as base_name
+- date - current date in YYYY-MM-DD
+- time - current time in HH-MM
+- datetime - current time in YYYY-MM-DDTHHMMSS
+- year - current year in YYYY
+- month - current month in MM
+- day - current day in DD
+- hour - current hour in HH
+- minute - current minute in MM</li>
 - printer_name - printer manufacturer and model
 - profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft
 - layer_height - layer height/thickness, vertical resolution (mm)

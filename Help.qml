@@ -53,6 +53,14 @@ UM.Dialog
                 <ul>
                     <li>base_name - the initial output filename from the object name and Cura's \"Add machine prefix to job name\" setting</li>
                     <li>job_name - same as base_name</li>
+                    <li>date - current date in YYYY-MM-DD</li>
+                    <li>time - current time in HH-MM</li>
+                    <li>datetime - current time in YYYY-MM-DDTHHMMSS</li>
+                    <li>year - current year in YYYY</li>
+                    <li>month - current month in MM</li>
+                    <li>day - current day in DD</li>
+                    <li>hour - current hour in HH</li>
+                    <li>minute - current minute in MM</li>
                     <li>printer_name - printer manufacturer and model</li>
                     <li>layer_height - layer height/thickness, vertical resolution (mm)</li>
                     <li>machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
