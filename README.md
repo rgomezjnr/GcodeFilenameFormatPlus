@@ -54,7 +54,7 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - month - current month in MM
 - day - current day in DD
 - hour - current hour in HH
-- minute - current minute in MM</li>
+- minute - current minute in MM
 - printer_name - printer manufacturer and model
 - profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft
 - layer_height - layer height/thickness, vertical resolution (mm)
