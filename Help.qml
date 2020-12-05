@@ -53,14 +53,6 @@ UM.Dialog
                 <ul>
                     <li>base_name - the initial output filename from the object name and Cura's \"Add machine prefix to job name\" setting</li>
                     <li>job_name - same as base_name</li>
-                    <li>date - current date in YYYY-MM-DD</li>
-                    <li>time - current time in HH-MM</li>
-                    <li>datetime - current time in YYYY-MM-DDTHHMMSS</li>
-                    <li>year - current year in YYYY</li>
-                    <li>month - current month in MM</li>
-                    <li>day - current day in DD</li>
-                    <li>hour - current hour in HH</li>
-                    <li>minute - current minute in MM</li>
                     <li>printer_name - printer manufacturer and model</li>
                     <li>layer_height - layer height/thickness, vertical resolution (mm)</li>
                     <li>machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
@@ -75,6 +67,9 @@ UM.Dialog
                     <li>material_print_temperature - material/nozzle temperature (°C)</li>
                     <li>material_bed_temperature - build plate temperature (°C)</li>
                     <li>material_flow - extruded material flow rate (%)</li>
+                    <li>material_weight - printed material weight (g)</li>
+                    <li>material_length - printed material length (m)</li>
+                    <li>material_cost - printed material cost</li>
                     <li>speed_print - print speed (mm/s)</li>
                     <li>retraction_combing - combing mode</li>
                     <li>magic_spiralize - spiralize outer contour, vase mode</li>
@@ -84,9 +79,14 @@ UM.Dialog
                     <li>print_time_hours_all - print_time_days * 24 + print_time_hours</li>
                     <li>print_time_minutes - print time in minutes</li>
                     <li>print_time_seconds - print time in seconds</li>
-                    <li>material_weight - printed material weight (g)</li>
-                    <li>material_length - printed material length (m)</li>
-                    <li>material_cost - printed material cost</li>
+                    <li>date - current date in YYYY-MM-DD</li>
+                    <li>time - current time in HH-MM</li>
+                    <li>datetime - current time in YYYY-MM-DDTHHMMSS</li>
+                    <li>year - current year in YYYY</li>
+                    <li>month - current month in MM</li>
+                    <li>day - current day in DD</li>
+                    <li>hour - current hour in HH</li>
+                    <li>minute - current minute in MM</li>
                 </ul>
                 <br>
                 <p>For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a></p>
