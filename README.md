@@ -49,6 +49,8 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - job_name - same as base_name
 - printer_name - printer manufacturer and model
 - profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft
+- cura_version - the Semantic version of Cura e.g. 4.4.0
+- object_count - number of objects on the build plate
 - layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
 - line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm
@@ -65,6 +67,7 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - material_weight - printed material weight (g)
 - material_length - printed material length (m)
 - material_cost - printed material cost
+- color_name - material color
 - speed_print - print speed (mm/s)
 - retraction_combing - combing mode
 - magic_spiralize - spiralize outer contour, vase mode
@@ -84,6 +87,17 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 - minute - current minute in MM
 
 For the full list please refer to [fdmprinter.def.json.pot](https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot)
+
+### Multiple extruder options
+For printers with multiple extruders, individual extruder settings can be specified by appending the extruder number to the option.
+
+For example, the following format:
+
+    [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
+
+will result in the following filename:
+
+    paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
 
 ## Source code
 https://github.com/rgomezjnr/GcodeFilenameFormat

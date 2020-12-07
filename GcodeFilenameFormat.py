@@ -23,9 +23,12 @@ from UM.OutputDevice.OutputDevicePlugin import OutputDevicePlugin
 from UM.Extension import Extension
 from UM.PluginRegistry import PluginRegistry
 from UM.Qt.Duration import DurationFormat
+from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
+from UM.Version import Version
 
 from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
+from cura.UI.ObjectsModel import ObjectsModel
 
 catalog = i18nCatalog("uranium")
 
@@ -75,7 +78,7 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         if self._writing:
             raise OutputDeviceError.DeviceBusyError()
 
-        self.getModifiedPrintSettings(application, global_stack)
+        #self.getModifiedPrintSettings(application, global_stack)
 
         dialog = QFileDialog()
 
@@ -207,9 +210,11 @@ class GcodeFilenameFormat(OutputDevice, Extension):
     # Perform lookup and replacement of print setting values in filename format
     def parseFilenameFormat(self, filename_format, file_name, application, global_stack):
         first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
+        active_extruder_stacks = ExtruderManager.getInstance().getActiveExtruderStacks()
         print_information = application.getPrintInformation()
         machine_manager = application.getMachineManager()
         print_settings = dict()
+        multi_extruder_settings = dict()
 
         job_name = print_information.jobName
         printer_name = global_stack.getName()
@@ -231,21 +236,74 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         day = QDateTime.currentDateTime().toString("dd")
         hour = QDateTime.currentDateTime().toString("HH")
         minute = QDateTime.currentDateTime().toString("mm")
+        object_count = self.getObjectCount()
+        cura_version = Version(Application.getInstance().getVersion())
+
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
         for t in tokens:
+            Logger.log("d", "t = %s", t)
+
             stack1 = first_extruder_stack.material.getMetaData().get(t, "")
             stack2 = global_stack.userChanges.getProperty(t, "value")
             stack3 = first_extruder_stack.getProperty(t, "value")
 
             if stack1 is not None and stack1 is not "":
-                print_settings[t] = stack1
+                if type(stack1) is float:
+                    print_settings[t] = round(stack1, 2)
+                else:
+                    print_settings[t] = stack1
             elif stack2 is not None and stack2 is not "":
-                print_settings[t] = stack2
+                if type(stack2) is float:
+                    print_settings[t] = round(stack2, 2)
+                else:
+                    print_settings[t] = stack2
             elif stack3 is not None and stack3 is not "":
-                print_settings[t] = stack3
+                if type(stack3) is float:
+                    print_settings[t] = round(stack3, 2)
+                else:
+                    print_settings[t] = stack3
             else:
                 print_settings[t] = None
+
+            #user_change_property = global_stack.userChanges.getProperty(t, "value")
+            #Logger.log("d", "user_change_property = %s", user_change_property)
+
+            #if user_change_property is not None and user_change_property is not "":
+            #    print_settings[t] = user_change_property
+
+            for a in active_extruder_stacks:
+                extruder_position = a.position
+                Logger.log("d", "extruder_position = %s", extruder_position)
+
+                try:
+                    Logger.log("d", "t[:-1] = %s", t[:-1])
+                    stack1 = a.material.getMetaData().get(t[:-1], "")
+                    stack2 = a.getProperty(t[:-1], "value")
+                    Logger.log("d", "stack1 = %s", stack1)
+                    Logger.log("d", "stack2 = %s", stack2)
+
+                    if stack1 is not None and stack1 is not "" and stack1 != 0 and extruder_position + 1 == int(t[-1]):
+                        Logger.log("d", "stack1 multi_extruder_settings[%s] = %s", t, stack1)
+                        if type(stack1) is float:
+                            multi_extruder_settings[t] = round(stack1, 2)
+                        else:
+                            multi_extruder_settings[t] = stack1
+                        multi_extruder_settings[t] = round(stack1, 2)
+                    elif stack2 is not None and stack2 is not "" and stack2 != 0 and extruder_position + 1 == int(t[-1]):
+                        Logger.log("d", "stack2 multi_extruder_settings[%s] = %s", t, stack2)
+                        if type(stack2) is float:
+                            multi_extruder_settings[t] = round(stack2, 2)
+                        else:
+                            multi_extruder_settings[t] = stack2
+                    #else:
+                    #    Logger.log("d", "multi_extruder_settings[%s] = None", t)
+                    #    #print_settings[t] = None
+                    #    multi_extruder_settings[t] = None
+                except TypeError:
+                    pass
+                except ValueError:
+                    pass
 
         print_settings["base_name"] = file_name
         print_settings["job_name"] = job_name
@@ -268,11 +326,16 @@ class GcodeFilenameFormat(OutputDevice, Extension):
         print_settings["day"] = day
         print_settings["hour"] = hour
         print_settings["minute"] = minute
+        print_settings["object_count"] = object_count
+        print_settings["cura_version"] = cura_version
+
+        print_settings.update(multi_extruder_settings)
+        Logger.log("d", "print_settings = %s", print_settings)
 
         for setting, value in print_settings.items():
             filename_format = filename_format.replace("[" + setting + "]", str(value))
 
-        filename_format = re.sub('[^A-Za-z0-9._\-%°$£€ ]+', '', filename_format)
+        filename_format = re.sub('[^A-Za-z0-9.,_\-%°$£€#\[\]\(\)\|\+\'\" ]+', '', filename_format)
         Logger.log("d", "filename_format = %s", filename_format)
 
         return filename_format
@@ -335,3 +398,14 @@ class GcodeFilenameFormat(OutputDevice, Extension):
 
         machine_id = global_stack.definition.getId()
         manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
+
+    def getObjectCount(self) -> int:
+        count = 0
+
+        for node in DepthFirstIterator(Application.getInstance().getController().getScene().getRoot()):
+            if not ObjectsModel()._shouldNodeBeHandled(node):
+                continue
+
+            count += 1
+
+        return count
