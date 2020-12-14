@@ -107,5 +107,7 @@ https://github.com/rgomezjnr/GcodeFilenameFormat
 
 [Michael Chan](https://github.com/mchan016)
 
+[Geoffrey Young](https://github.com/geoffrey-young)
+
 ## License
 [LGPLv3](https://github.com/rgomezjnr/GcodeFilenameFormat/blob/master/LICENSE)
