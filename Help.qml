@@ -54,6 +54,9 @@ UM.Dialog
                     <li>base_name - the initial output filename from the object name and Cura's \"Add machine prefix to job name\" setting</li>
                     <li>job_name - same as base_name</li>
                     <li>printer_name - printer manufacturer and model</li>
+                    <li>profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft</li>
+                    <li>cura_version - the Semantic version of Cura e.g. 4.4.0</li>
+                    <li>object_count - number of objects on the build plate</li>
                     <li>layer_height - layer height/thickness, vertical resolution (mm)</li>
                     <li>machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
                     <li>line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
@@ -67,6 +70,10 @@ UM.Dialog
                     <li>material_print_temperature - material/nozzle temperature (°C)</li>
                     <li>material_bed_temperature - build plate temperature (°C)</li>
                     <li>material_flow - extruded material flow rate (%)</li>
+                    <li>material_weight - printed material weight (g)</li>
+                    <li>material_length - printed material length (m)</li>
+                    <li>material_cost - printed material cost</li>
+                    <li>color_name - material color</li>
                     <li>speed_print - print speed (mm/s)</li>
                     <li>retraction_combing - combing mode</li>
                     <li>magic_spiralize - spiralize outer contour, vase mode</li>
@@ -76,12 +83,30 @@ UM.Dialog
                     <li>print_time_hours_all - print_time_days * 24 + print_time_hours</li>
                     <li>print_time_minutes - print time in minutes</li>
                     <li>print_time_seconds - print time in seconds</li>
-                    <li>material_weight - printed material weight (g)</li>
-                    <li>material_length - printed material length (m)</li>
-                    <li>material_cost - printed material cost</li>
+                    <li>date - current date in YYYY-MM-DD</li>
+                    <li>time - current time in HH-MM</li>
+                    <li>datetime - current time in YYYY-MM-DDTHHMMSS</li>
+                    <li>year - current year in YYYY</li>
+                    <li>month - current month in MM</li>
+                    <li>day - current day in DD</li>
+                    <li>hour - current hour in HH</li>
+                    <li>minute - current minute in MM</li>
                 </ul>
                 <br>
                 <p>For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a></p>
+                <br>
+                <h2>Multiple extruder options</h2>
+                <p>For printers with multiple extruders, individual extruder settings can be specified by appending<br>
+                the extruder number to the option.</p>
+                <br>
+                <p>For example, the following format:</p>
+                <br>
+                <p>[base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm<br>
+                ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm</p>
+                <br>
+                <p>will result in the following filename:</p>
+                <br>
+                <p>paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
                 <br>"
         }
     }
