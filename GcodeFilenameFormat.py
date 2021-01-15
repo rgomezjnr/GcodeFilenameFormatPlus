@@ -26,7 +26,7 @@ from cura.UI.ObjectsModel import ObjectsModel
 
 catalog = i18nCatalog("cura")
 
-DEFAULT_FILENAME_FORMAT = "[base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
+DEFAULT_FILENAME_FORMAT = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
 
 class GcodeFilenameFormat(Extension, QObject):
     def __init__(self, parent = None):
@@ -109,7 +109,6 @@ class GcodeFilenameFormat(Extension, QObject):
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
 
         file_name = self.parseFilenameFormat(filename_format, file_name, application, global_stack)
-        file_name = print_information._abbr_machine + "_" + print_information.baseName + " " + file_name
         Logger.log("d", "parsed file_name = %s", file_name)
 
         self._print_information._job_name = file_name
@@ -123,7 +122,8 @@ class GcodeFilenameFormat(Extension, QObject):
         print_settings = dict()
         multi_extruder_settings = dict()
 
-        job_name = print_information.jobName
+        base_name = print_information.baseName
+        abbr_machine = print_information._abbr_machine
         printer_name = global_stack.getName()
         profile_name = machine_manager.activeQualityOrQualityChangesName
         print_time = print_information.currentPrintTime.getDisplayString(DurationFormat.Format.ISO8601)
@@ -212,8 +212,9 @@ class GcodeFilenameFormat(Extension, QObject):
                 except ValueError:
                     pass
 
-        print_settings["base_name"] = file_name
-        print_settings["job_name"] = job_name
+        print_settings["base_name"] = base_name
+        print_settings["job_name"] = base_name
+        print_settings["abbr_machine"] = abbr_machine
         print_settings["printer_name"] = printer_name
         print_settings["profile_name"] = profile_name
         print_settings["print_time"] = print_time
@@ -222,9 +223,11 @@ class GcodeFilenameFormat(Extension, QObject):
         print_settings["print_time_hours_all"] = print_time_hours_all
         print_settings["print_time_minutes"] = print_time_minutes
         print_settings["print_time_seconds"] = print_time_seconds
-        print_settings["material_weight"] = int(material_weight[0])
-        print_settings["material_length"] = round(float(material_length[0]), 1)
-        print_settings["material_cost"] = round(float(material_cost[0]), 2)
+        # GFF Cura startup error - IndexError: list index out of range
+        # These only work in requestWrite() method, after selecting Save Gcode button, in non update-job-name branch
+        #print_settings["material_weight"] = int(material_weight[0])
+        #print_settings["material_length"] = round(float(material_length[0]), 1)
+        #print_settings["material_cost"] = round(float(material_cost[0]), 2)
         print_settings["date"] = date
         print_settings["time"] = time
         print_settings["datetime"] = datetime
