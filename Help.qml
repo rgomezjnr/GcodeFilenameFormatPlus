@@ -23,10 +23,10 @@ UM.Dialog
 
             text:
                 "<h1>Example</h1>
-                <p>PI3MK3M_paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode</p>
+                <p>PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode</p>
                 <br>
                 <h1>Default filename format</h1>
-                <p>[base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]%<br>
+                <p>[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]%<br>
                 ext1 [material_print_temperature]C bed [material_bed_temperature]C</p>
                 <br>
                 <h1>Usage</h1>
@@ -37,13 +37,7 @@ UM.Dialog
                     <img src=\"images/edit-format-dialog.png\"/>
                     <br>
                     <li>Slice object</li>
-                    <li>Select Save Gcode button (instead of default Save to File button)</li>
-                    <br>
-                    <br>
-                    <img src=\"images/save-gcode-button.png\"/>
-                    <br>
-                    <li>Futher modify formatted filename as desired in the save dialog</li>
-                    <li>Select Save</li>
+                    <li>Save .gcode or send job to printer</li>
                 </ol>
                 <br>
                 <p>Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the<br>
@@ -53,6 +47,7 @@ UM.Dialog
                 <ul>
                     <li>base_name - the initial output filename from the object name and Cura's \"Add machine prefix to job name\" setting</li>
                     <li>job_name - same as base_name</li>
+                    <li>abbr_machine - abbreviated printer machine name</li>
                     <li>printer_name - printer manufacturer and model</li>
                     <li>profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft</li>
                     <li>cura_version - the Semantic version of Cura e.g. 4.4.0</li>
@@ -101,12 +96,12 @@ UM.Dialog
                 <br>
                 <p>For example, the following format:</p>
                 <br>
-                <p>[base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm<br>
+                <p>[abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm<br>
                 ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm</p>
                 <br>
                 <p>will result in the following filename:</p>
                 <br>
-                <p>paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
+                <p>PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
                 <br>"
         }
     }

@@ -4,11 +4,11 @@ Cura plugin for specifying filename format with print settings
 
 Example:
 
-    PI3MK3M_paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
+    PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
 
 Default filename format:
 
-    [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+    [abbr_machine] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
 
 ## Requirements
 Cura 4.4 or later
@@ -40,6 +40,9 @@ Besides .gcode, the plugin will also work with other file types such as .3mf and
 
 ## Format options
 
+- base_name - object/model name
+- job_name - same as base_name
+- abbr_machine - abbreviated printer machine name
 - printer_name - printer manufacturer and model
 - profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft
 - cura_version - the Semantic version of Cura e.g. 4.4.0
@@ -86,11 +89,11 @@ For printers with multiple extruders, individual extruder settings can be specif
 
 For example, the following format:
 
-    [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
+    [abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
 
 will result in the following filename:
 
-    paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
+    PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
 
 ## Source code
 https://github.com/rgomezjnr/GcodeFilenameFormat
