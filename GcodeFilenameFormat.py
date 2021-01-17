@@ -223,11 +223,12 @@ class GcodeFilenameFormat(Extension, QObject):
         print_settings["print_time_hours_all"] = print_time_hours_all
         print_settings["print_time_minutes"] = print_time_minutes
         print_settings["print_time_seconds"] = print_time_seconds
-        # GFF Cura startup error - IndexError: list index out of range
-        # These only work in requestWrite() method, after selecting Save Gcode button, in non update-job-name branch
-        #print_settings["material_weight"] = int(material_weight[0])
-        #print_settings["material_length"] = round(float(material_length[0]), 1)
-        #print_settings["material_cost"] = round(float(material_cost[0]), 2)
+        try:
+            print_settings["material_weight"] = round(float(material_weight[0]))
+            print_settings["material_length"] = round(float(material_length[0]), 2)
+            print_settings["material_cost"] = round(float(material_cost[0]), 2)
+        except IndexError:
+            pass
         print_settings["date"] = date
         print_settings["time"] = time
         print_settings["datetime"] = datetime
