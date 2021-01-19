@@ -24,6 +24,8 @@ from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.UI.ObjectsModel import ObjectsModel
 
+from GcodeFilenameFormat.ParseFilenameFormat import parseFilenameFormat
+
 catalog = i18nCatalog("cura")
 
 DEFAULT_FILENAME_FORMAT = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
@@ -99,26 +101,23 @@ class GcodeFilenameFormat(Extension, QObject):
 
     def _triggerJobNameUpdate(self, *args, **kwargs) -> None:
         self._print_information._job_name = ""      # Fixes filename clobbering from repeated calls
-
-        application = cast(CuraApplication, Application.getInstance())
-        machine_manager = application.getMachineManager()
-        global_stack = machine_manager.activeMachine
-        print_information = application.getPrintInformation()
-
-        file_name = print_information.jobName
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
+        #print_settings = dict()
 
-        file_name = self.parseFilenameFormat(filename_format, file_name, application, global_stack)
+        print_settings = self.getPrintSettings(filename_format)
+        file_name = parseFilenameFormat(print_settings, filename_format)
         Logger.log("d", "parsed file_name = %s", file_name)
 
         self._print_information._job_name = file_name
 
-    # Perform lookup and replacement of print setting values in filename format
-    def parseFilenameFormat(self, filename_format, file_name, application, global_stack):
-        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
-        active_extruder_stacks = ExtruderManager.getInstance().getActiveExtruderStacks()
+    # Retrieve print setting values from Cura/Uranium
+    def getPrintSettings(self, filename_format):
+        application = cast(CuraApplication, Application.getInstance())
         print_information = application.getPrintInformation()
         machine_manager = application.getMachineManager()
+        global_stack = machine_manager.activeMachine
+        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
+        active_extruder_stacks = ExtruderManager.getInstance().getActiveExtruderStacks()
         print_settings = dict()
         multi_extruder_settings = dict()
 
@@ -267,13 +266,7 @@ class GcodeFilenameFormat(Extension, QObject):
         print_settings.update(multi_extruder_settings)
         Logger.log("d", "print_settings = %s", print_settings)
 
-        for setting, value in print_settings.items():
-            filename_format = filename_format.replace("[" + setting + "]", str(value))
-
-        filename_format = re.sub('[^A-Za-z0-9.,_\-%°$£€#\[\]\(\)\|\+\'\" ]+', '', filename_format)
-        Logger.log("d", "filename_format = %s", filename_format)
-
-        return filename_format
+        return print_settings
 
     def editFormat(self):
         if not self.format_window:
