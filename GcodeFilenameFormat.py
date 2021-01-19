@@ -223,12 +223,6 @@ class GcodeFilenameFormat(Extension, QObject):
         print_settings["print_time_hours_all"] = print_time_hours_all
         print_settings["print_time_minutes"] = print_time_minutes
         print_settings["print_time_seconds"] = print_time_seconds
-        try:
-            print_settings["material_weight"] = round(float(material_weight[0]))
-            print_settings["material_length"] = round(float(material_length[0]), 2)
-            print_settings["material_cost"] = round(float(material_cost[0]), 2)
-        except IndexError:
-            pass
         print_settings["date"] = date
         print_settings["time"] = time
         print_settings["datetime"] = datetime
@@ -239,6 +233,36 @@ class GcodeFilenameFormat(Extension, QObject):
         print_settings["minute"] = minute
         print_settings["object_count"] = object_count
         print_settings["cura_version"] = cura_version
+
+        try:
+            if len(material_weight) > 1:
+                print_settings["material_weight1"] = round(float(material_weight[0]))
+                print_settings["material_weight2"] = round(float(material_weight[1]))
+                print_settings["material_weight"] = round(float(material_weight[0] + material_weight[1]))
+            else:
+                print_settings["material_weight"] = round(float(material_weight[0]))
+        except IndexError:
+            pass
+
+        try:
+            if len(material_length) > 1:
+                print_settings["material_length1"] = round(float(material_length[0]), 2)
+                print_settings["material_length2"] = round(float(material_length[1]), 2)
+                print_settings["material_length"] = round(float(material_length[0] + material_length[1]), 2)
+            else:
+                print_settings["material_length"] = round(float(material_length[0]), 2)
+        except IndexError:
+            pass
+
+        try:
+            if len(material_cost) > 1:
+                print_settings["material_cost1"] = round(float(material_cost[0]), 2)
+                print_settings["material_cost2"] = round(float(material_cost[1]), 2)
+                print_settings["material_cost"] = round(float(material_cost[0] + material_cost[1]), 2)
+            else:
+                print_settings["material_cost"] = round(float(material_cost[0]), 2)
+        except IndexError:
+            pass
 
         print_settings.update(multi_extruder_settings)
         Logger.log("d", "print_settings = %s", print_settings)
