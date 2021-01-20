@@ -7,6 +7,23 @@ import ParseFilenameFormat
 class TestParseFilenameFormat(unittest.TestCase):
     #def setUp(self):
 
+    def test_default_format(self):
+        print_settings = {
+            'abbr_machine': 'PI3MK3M',
+            'base_name': 'paperclip',
+            'brand': 'Generic',
+            'material': 'PLA',
+            'line_width': '0.4',
+            'layer_height': '0.2',
+            'infill_sparse_density': '20',
+            'material_print_temperature': '200',
+            'material_bed_temperature': '60'
+        }
+        filename_format = '[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C'
+        expected_filename = 'PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C'
+        filename = ParseFilenameFormat.parseFilenameFormat(print_settings, filename_format)
+        self.assertEqual(filename, expected_filename)
+
     def test_dual_extruder_format(self):
         print_settings = {
             'abbr_machine': 'PI3MK3M',
