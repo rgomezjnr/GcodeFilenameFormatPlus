@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import sys
 import unittest
 
@@ -44,6 +47,22 @@ class TestParseFilenameFormat(unittest.TestCase):
         }
         filename_format = '[abbr_machine] [base_name] total [material_weight]g [material_length]m $[material_cost] [brand1] [material1] [material_weight1]g [material_length1]m $[material_cost1] [brand2] [material2] [material_weight2]g [material_length2]m $[material_cost2]'
         expected_filename = 'PI3MK3M paperclip total 2g 85.46m $15.10 Ultimaker Black ABS 1g 50.12m $9.50 Ultimaker White Tough PLA 1g 35.34m $5.60'
+        filename = ParseFilenameFormat.parseFilenameFormat(print_settings, filename_format)
+        self.assertEqual(filename, expected_filename)
+
+    def test_nonalphanumeric_format(self):
+        print_settings = {
+            'base_name': 'paperclip',
+            'material': 'PLA',
+            'infill_sparse_density': '20',
+            'machine_nozzle_size': '1.0',
+            'layer_height': '0.32',
+            'line_width': '1.0',
+            'material_print_temperature': '220',
+            'material_bed_temperature': '65'
+        }
+        filename_format = '[base_name] [[material]] | Infill-[[infill_sparse_density]]% | NozDiam-[[machine_nozzle_size]] | LH-[[layer_height]] | LW-[[line_width]] | ExtTemp-[[material_print_temperature]]°C | BedTemp-[[material_bed_temperature]]°C'
+        expected_filename = 'paperclip [PLA] | Infill-[20]% | NozDiam-[1.0] | LH-[0.32] | LW-[1.0] | ExtTemp-[220]°C | BedTemp-[65]°C'
         filename = ParseFilenameFormat.parseFilenameFormat(print_settings, filename_format)
         self.assertEqual(filename, expected_filename)
 
