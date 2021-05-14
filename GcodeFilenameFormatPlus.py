@@ -24,20 +24,20 @@ from cura.CuraApplication import CuraApplication
 from cura.Settings.ExtruderManager import ExtruderManager
 from cura.UI.ObjectsModel import ObjectsModel
 
-from GcodeFilenameFormat.ParseFilenameFormat import parseFilenameFormat
+from GcodeFilenameFormatPlus.ParseFilenameFormat import parseFilenameFormat
 
 catalog = i18nCatalog("cura")
 
 DEFAULT_FILENAME_FORMAT = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
 
-class GcodeFilenameFormat(Extension, QObject):
+class GcodeFilenameFormatPlus(Extension, QObject):
     def __init__(self, parent = None):
         QObject.__init__(self, parent)
         Extension.__init__(self)
 
-        Application.getInstance().getPreferences().addPreference("gcode_filename_format/filename_format", DEFAULT_FILENAME_FORMAT)
+        Application.getInstance().getPreferences().addPreference("gcode_filename_format_plus/filename_format", DEFAULT_FILENAME_FORMAT)
 
-        self.setMenuName("Gcode Filename Format")
+        self.setMenuName("Gcode Filename Format Plus")
         self.addMenuItem("Edit Format", self.editFormat)
         self.format_window = None
         self.addMenuItem("Help", self.help)

@@ -8,7 +8,7 @@ import QtQuick.Controls 1.1
 UM.Dialog
 {
     id: base
-    title: "Gcode Filename Format - Help"
+    title: "Gcode Filename Format Plus - Help"
     width: 800 * screenScaleFactor
     height: 610 * screenScaleFactor
     minimumWidth: 700 * screenScaleFactor
@@ -22,26 +22,27 @@ UM.Dialog
             onLinkActivated: Qt.openUrlExternally(link)
 
             text:
-                "<h1>Example</h1>
-                <p>PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode</p>
-                <br>
-                <h1>Default filename format</h1>
+                "<h1>Default filename format:</h1>
                 <p>[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]%<br>
                 ext1 [material_print_temperature]C bed [material_bed_temperature]C</p>
                 <br>
+                <h1>Example filename output:</h1>
+                <p>PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode</p>
+                <br>
                 <h1>Usage</h1>
                 <ol>
-                    <li>Specify filename format using Extensions -> Gcode Filename Format -> Edit Format</li>
+                    <li>Specify filename format using Extensions -> Gcode Filename Format Plus -> Edit Format</li>
                     <br>
                     <br>
                     <img src=\"images/edit-format-dialog.png\"/>
                     <br>
                     <li>Slice object</li>
-                    <li>Save .gcode or send job to printer</li>
+                    <li>Select Save to Disk button, or File -> Export, or send job to printer</li>
                 </ol>
                 <br>
-                <p>Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the<br>
-                available file types in the save dialog.</p>
+                <p>Besides .gcode, the plugin also works with other file types such as .3mf and .stl. Simply select from the<br>
+                available file types in the save dialog. Additionally, GFF+ will pass the custom job name to an OctoPrint server<br>
+                when using the <a href=\"https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/OctoPrintPlugin\">OctoPrint Connection</a> plugin.</p>
                 <br>
                 <h1>Format options</h1>
                 <ul>
@@ -94,12 +95,12 @@ UM.Dialog
                 <p>For printers with multiple extruders, individual extruder settings can be specified by appending<br>
                 the extruder number to the option.</p>
                 <br>
-                <p>For example, the following format:</p>
+                <p>Example filename format:</p>
                 <br>
                 <p>[abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm<br>
                 ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm</p>
                 <br>
-                <p>will result in the following filename:</p>
+                <p>Example filename output:</p>
                 <br>
                 <p>PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
                 <br>"

@@ -1,10 +1,10 @@
 import unittest
-from GcodeFilenameFormat import GcodeFilenameFormat
-#import GcodeFilenameFormat
-#from ../ import GcodeFilenameFormat
-#target = __import__("../GcodeFilenameFormat.py")
+from GcodeFilenameFormatPlus import GcodeFilenameFormatPlus
+#import GcodeFilenameFormatPlus
+#from ../ import GcodeFilenameFormatPlus
+#target = __import__("../GcodeFilenameFormatPlus.py")
 
-class TestGcodeFilenameFormat(unittest.TestCase):
+class TestGcodeFilenameFormatPlus(unittest.TestCase):
 
     def test_getPrintSettings(self):
         # Normal profile print settings, Generic PLA

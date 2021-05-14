@@ -1,42 +1,42 @@
-# Gcode Filename Format
+# Gcode Filename Format Plus
 
-Cura plugin for specifying filename format with print settings
-
-Example:
-
-    PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
+Cura plugin that adds print settings in G-code filenames, now with multi-extruder and OctoPrint support
 
 Default filename format:
 
     [abbr_machine] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
+
+Example filename output:
+
+    PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
 
 ## Requirements
 Cura 4.4 or later
 
 ## Installation
 ### Preferred method
-Install plugin from [Ultimaker Marketplace](https://marketplace.ultimaker.com/app/cura/plugins/rgomezjnr/GcodeFilenameFormat)
+Install plugin from [Ultimaker Marketplace](https://marketplace.ultimaker.com/app/cura/plugins/rgomezjnr/GcodeFilenameFormatPlus)
 
 ### Alternatively
-1. Clone repository (or [download repository .zip](https://github.com/rgomezjnr/GcodeFilenameFormat/archive/master.zip))
+1. Clone repository (or [download repository .zip](https://github.com/rgomezjnr/GcodeFilenameFormatPlus/archive/master.zip))
 ```
-git clone https://github.com/rgomezjnr/GcodeFilenameFormat.git
+git clone https://github.com/rgomezjnr/GcodeFilenameFormatPlus.git
 ```
-2. Move GcodeFilenameFormat folder to Cura plugins folder
+2. Move GcodeFilenameFormatPlus folder to Cura plugins folder
 - Windows: C:\Users\\%USERNAME%\AppData\Roaming\cura\4.4\plugins
 - Mac: $User/Library/Application\ Support/Cura/4.4/plugins
 - Linux: $HOME/.local/share/cura/4.4/plugins
 3. Launch Cura
 
 ## Usage
-1. Specify filename format using Extensions -> Gcode Filename Format -> Edit Format
+1. Specify filename format using Extensions -> Gcode Filename Format Plus -> Edit Format
 
     ![Edit Format Dialog](images/edit-format-dialog.png)
 
 2. Slice object
-3. Save .gcode or send job to printer
+3. Select Save to Disk button, or File -> Export, or send job to printer
 
-Besides .gcode, the plugin will also work with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog.
+Besides .gcode, the plugin also works with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog. Additionally, GFF+ will pass the custom job name to an OctoPrint server when using the [OctoPrint Connection](https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/OctoPrintPlugin) plugin.
 
 ## Format options
 
@@ -87,16 +87,16 @@ For the full list please refer to [fdmprinter.def.json.pot](https://github.com/U
 ### Multiple extruder options
 For printers with multiple extruders, individual extruder settings can be specified by appending the extruder number to the option.
 
-For example, the following format:
+Example filename format:
 
     [abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
 
-will result in the following filename:
+Example filename output:
 
     PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
 
 ## Source code
-https://github.com/rgomezjnr/GcodeFilenameFormat
+https://github.com/rgomezjnr/GcodeFilenameFormatPlus
 
 ## Authors
 [Robert Gomez, Jr.](https://github.com/rgomezjnr)

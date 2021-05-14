@@ -8,7 +8,7 @@ import QtQuick.Controls 1.1
 UM.Dialog
 {
     id: base
-    title: "Gcode Filename Format - Edit Format"
+    title: "Gcode Filename Format Plus - Edit Format"
     width: 600 * screenScaleFactor
     height: 70 * screenScaleFactor
     minimumWidth: 300 * screenScaleFactor
@@ -17,7 +17,7 @@ UM.Dialog
     TextField
     {
         id: textfield
-        text: UM.Preferences.getValue("gcode_filename_format/filename_format")
+        text: UM.Preferences.getValue("gcode_filename_format_plus/filename_format")
         width: base.width - 15 * screenScaleFactor
     }
 
@@ -35,7 +35,7 @@ UM.Dialog
         onClicked:
         {
             base.visible = false;
-            UM.Preferences.setValue("gcode_filename_format/filename_format", textfield.text)
+            UM.Preferences.setValue("gcode_filename_format_plus/filename_format", textfield.text)
         }
     }
 }
