@@ -101,7 +101,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
 
     def _triggerJobNameUpdate(self, *args, **kwargs) -> None:
         self._print_information._job_name = ""      # Fixes filename clobbering from repeated calls
-        filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format/filename_format")
+        filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format_plus/filename_format")
         #print_settings = dict()
 
         print_settings = self.getPrintSettings(filename_format)

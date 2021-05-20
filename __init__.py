@@ -1,11 +1,11 @@
 # AGPLv3
 
-from . import GcodeFilenameFormat
+from . import GcodeFilenameFormatPlus
 
 def getMetaData():
     return {}
 
 def register(app):
     return {
-        "extension": GcodeFilenameFormat.GcodeFilenameFormat()
+        "extension": GcodeFilenameFormatPlus.GcodeFilenameFormatPlus()
     }
