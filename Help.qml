@@ -56,7 +56,7 @@ UM.Dialog
                     <li>layer_height - layer height/thickness, vertical resolution (mm)</li>
                     <li>machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
                     <li>line_width - line/nozzle width e.g. 0.2 mm, 0.4 mm, 0.6 mm</li>
-                    <li>wall thickness - thickness of shell walls (mm)</li>
+                    <li>wall_thickness - thickness of shell walls (mm)</li>
                     <li>infill_sparse_density - infill percentage (%)</li>
                     <li>infill_pattern - infill pattern e.g grid, lines, triangles</li>
                     <li>top_bottom_pattern - pattern of the top and bottom layers e.g. lines, concentric, zig zag</li>
