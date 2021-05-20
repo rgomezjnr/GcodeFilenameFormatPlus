@@ -154,17 +154,17 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             stack2 = global_stack.userChanges.getProperty(t, "value")
             stack3 = first_extruder_stack.getProperty(t, "value")
 
-            if stack1 is not None and stack1 is not "":
+            if stack1 is not None and stack1 != "":
                 if type(stack1) is float:
                     print_settings[t] = round(stack1, 2)
                 else:
                     print_settings[t] = stack1
-            elif stack2 is not None and stack2 is not "":
+            elif stack2 is not None and stack2 != "":
                 if type(stack2) is float:
                     print_settings[t] = round(stack2, 2)
                 else:
                     print_settings[t] = stack2
-            elif stack3 is not None and stack3 is not "":
+            elif stack3 is not None and stack3 != "":
                 if type(stack3) is float:
                     print_settings[t] = round(stack3, 2)
                 else:
@@ -175,7 +175,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             #user_change_property = global_stack.userChanges.getProperty(t, "value")
             #Logger.log("d", "user_change_property = %s", user_change_property)
 
-            #if user_change_property is not None and user_change_property is not "":
+            #if user_change_property is not None and user_change_property != "":
             #    print_settings[t] = user_change_property
 
             for a in active_extruder_stacks:
@@ -189,14 +189,14 @@ class GcodeFilenameFormatPlus(Extension, QObject):
                     Logger.log("d", "stack1 = %s", stack1)
                     Logger.log("d", "stack2 = %s", stack2)
 
-                    if stack1 is not None and stack1 is not "" and stack1 != 0 and extruder_position + 1 == int(t[-1]):
+                    if stack1 is not None and stack1 != "" and stack1 != 0 and extruder_position + 1 == int(t[-1]):
                         Logger.log("d", "stack1 multi_extruder_settings[%s] = %s", t, stack1)
                         if type(stack1) is float:
                             multi_extruder_settings[t] = round(stack1, 2)
                         else:
                             multi_extruder_settings[t] = stack1
                         multi_extruder_settings[t] = round(stack1, 2)
-                    elif stack2 is not None and stack2 is not "" and stack2 != 0 and extruder_position + 1 == int(t[-1]):
+                    elif stack2 is not None and stack2 != "" and stack2 != 0 and extruder_position + 1 == int(t[-1]):
                         Logger.log("d", "stack2 multi_extruder_settings[%s] = %s", t, stack2)
                         if type(stack2) is float:
                             multi_extruder_settings[t] = round(stack2, 2)
