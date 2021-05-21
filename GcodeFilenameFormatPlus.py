@@ -105,9 +105,14 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         #print_settings = dict()
 
         print_settings = self.getPrintSettings(filename_format)
-        file_name = parseFilenameFormat(print_settings, filename_format)
 
-        self._print_information._job_name = file_name
+        # Only update job name on valid print_settings dict
+        # Necessary when getPrintSettings() attempts to access unavailable print settings during Cura exit
+        if print_settings:
+            file_name = parseFilenameFormat(print_settings, filename_format)
+            self._print_information._job_name = file_name
+        else:
+            return
 
     # Retrieve print setting values from Cura/Uranium
     def getPrintSettings(self, filename_format):
@@ -115,24 +120,30 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         print_information = application.getPrintInformation()
         machine_manager = application.getMachineManager()
         global_stack = machine_manager.activeMachine
-        first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
-        active_extruder_stacks = ExtruderManager.getInstance().getActiveExtruderStacks()
         print_settings = dict()
         multi_extruder_settings = dict()
 
-        base_name = print_information.baseName
-        abbr_machine = print_information._abbr_machine
-        printer_name = global_stack.getName()
-        profile_name = machine_manager.activeQualityOrQualityChangesName
-        print_time = print_information.currentPrintTime.getDisplayString(DurationFormat.Format.ISO8601)
-        print_time_days = print_information.currentPrintTime.days
-        print_time_hours = print_information.currentPrintTime.hours
-        print_time_hours_all = print_time_days * 24 + print_time_hours
-        print_time_minutes = print_information.currentPrintTime.minutes
-        print_time_seconds = print_information.currentPrintTime.seconds
-        material_weight = print_information.materialWeights
-        material_length = print_information.materialLengths
-        material_cost = print_information.materialCosts
+        try:
+            first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
+            active_extruder_stacks = ExtruderManager.getInstance().getActiveExtruderStacks()
+            base_name = print_information.baseName
+            abbr_machine = print_information._abbr_machine
+            printer_name = global_stack.getName()
+            profile_name = machine_manager.activeQualityOrQualityChangesName
+            print_time = print_information.currentPrintTime.getDisplayString(DurationFormat.Format.ISO8601)
+            print_time_days = print_information.currentPrintTime.days
+            print_time_hours = print_information.currentPrintTime.hours
+            print_time_hours_all = print_time_days * 24 + print_time_hours
+            print_time_minutes = print_information.currentPrintTime.minutes
+            print_time_seconds = print_information.currentPrintTime.seconds
+            material_weight = print_information.materialWeights
+            material_length = print_information.materialLengths
+            material_cost = print_information.materialCosts
+            object_count = self.getObjectCount()
+            cura_version = Version(Application.getInstance().getVersion())
+        except (IndexError, AttributeError):
+            return None
+
         date = QDate.currentDate().toString(format=Qt.ISODate)
         time = QDateTime.currentDateTime().toString("HH-mm")
         datetime = QDateTime.currentDateTime().toString(format=Qt.ISODate)
@@ -141,8 +152,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         day = QDateTime.currentDateTime().toString("dd")
         hour = QDateTime.currentDateTime().toString("HH")
         minute = QDateTime.currentDateTime().toString("mm")
-        object_count = self.getObjectCount()
-        cura_version = Version(Application.getInstance().getVersion())
 
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
@@ -194,7 +203,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
                         else:
                             multi_extruder_settings[t] = stack2
                     #else:
-                    #    Logger.log("d", "multi_extruder_settings[%s] = None", t)
                     #    #print_settings[t] = None
                     #    multi_extruder_settings[t] = None
                 except TypeError:
