@@ -102,7 +102,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
     def _triggerJobNameUpdate(self, *args, **kwargs) -> None:
         self._print_information._job_name = ""      # Fixes filename clobbering from repeated calls
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format_plus/filename_format")
-        #print_settings = dict()
 
         print_settings = self.getPrintSettings(filename_format)
 
@@ -177,12 +176,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
                     print_settings[t] = stack3
             else:
                 print_settings[t] = None
-
-            #user_change_property = global_stack.userChanges.getProperty(t, "value")
-            #Logger.log("d", "user_change_property = %s", user_change_property)
-
-            #if user_change_property is not None and user_change_property != "":
-            #    print_settings[t] = user_change_property
 
             for a in active_extruder_stacks:
                 extruder_position = a.position
@@ -287,14 +280,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         component = Application.getInstance().createQmlComponent(qml_file_path)
 
         return component
-
-    # Get list of modified print settings using SliceInfoPlugin
-    def getModifiedPrintSettings(self, application, global_stack):
-        slice_info = application._plugin_registry.getPluginObject("SliceInfoPlugin")
-        modified_print_settings = slice_info._getUserModifiedSettingKeys()
-
-        machine_id = global_stack.definition.getId()
-        manufacturer = global_stack.definition.getMetaDataEntry("manufacturer", "")
 
     def getObjectCount(self) -> int:
         count = 0
