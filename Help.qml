@@ -3,19 +3,20 @@
 import UM 1.2 as UM
 import QtQuick 2.2
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.1
+import QtQuick.Controls 1.3
 
 UM.Dialog
 {
     id: base
     title: "Gcode Filename Format Plus - Help"
-    width: 800 * screenScaleFactor
-    height: 610 * screenScaleFactor
+    width: 700 * screenScaleFactor
+    height: 675 * screenScaleFactor
     minimumWidth: 700 * screenScaleFactor
 
     ScrollView {
         width: parent.width
         height: parent.height
+        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
         Text
         {
