@@ -106,7 +106,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
 
         print_settings = self.getPrintSettings(filename_format)
         file_name = parseFilenameFormat(print_settings, filename_format)
-        Logger.log("d", "parsed file_name = %s", file_name)
 
         self._print_information._job_name = file_name
 
@@ -148,8 +147,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
         for t in tokens:
-            Logger.log("d", "t = %s", t)
-
             stack1 = first_extruder_stack.material.getMetaData().get(t, "")
             stack2 = global_stack.userChanges.getProperty(t, "value")
             stack3 = first_extruder_stack.getProperty(t, "value")
@@ -180,24 +177,18 @@ class GcodeFilenameFormatPlus(Extension, QObject):
 
             for a in active_extruder_stacks:
                 extruder_position = a.position
-                Logger.log("d", "extruder_position = %s", extruder_position)
 
                 try:
-                    Logger.log("d", "t[:-1] = %s", t[:-1])
                     stack1 = a.material.getMetaData().get(t[:-1], "")
                     stack2 = a.getProperty(t[:-1], "value")
-                    Logger.log("d", "stack1 = %s", stack1)
-                    Logger.log("d", "stack2 = %s", stack2)
 
                     if stack1 is not None and stack1 != "" and stack1 != 0 and extruder_position + 1 == int(t[-1]):
-                        Logger.log("d", "stack1 multi_extruder_settings[%s] = %s", t, stack1)
                         if type(stack1) is float:
                             multi_extruder_settings[t] = round(stack1, 2)
                         else:
                             multi_extruder_settings[t] = stack1
                         multi_extruder_settings[t] = round(stack1, 2)
                     elif stack2 is not None and stack2 != "" and stack2 != 0 and extruder_position + 1 == int(t[-1]):
-                        Logger.log("d", "stack2 multi_extruder_settings[%s] = %s", t, stack2)
                         if type(stack2) is float:
                             multi_extruder_settings[t] = round(stack2, 2)
                         else:
@@ -264,7 +255,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             pass
 
         print_settings.update(multi_extruder_settings)
-        Logger.log("d", "print_settings = %s", print_settings)
 
         return print_settings
 
