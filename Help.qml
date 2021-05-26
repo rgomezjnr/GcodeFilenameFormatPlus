@@ -104,7 +104,30 @@ UM.Dialog
                 <p>Example filename output:</p>
                 <br>
                 <p>PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
-                <br>"
+                <br>
+                <h1>Support</h1>
+                <p>If you find an issue or have any feedback please submit an issue on <a href=\"https://github.com/rgomezjnr/GcodeFilenameFormatPlus/issues\">GitHub</a>.</p>
+                <br>
+                <p>If you would like to show your support donations are greatly appeciated via:</p>
+                <ul>
+                    <li><a href=\"https://github.com/sponsors/rgomezjnr\">GitHub Sponsors</a></li>
+                    <li><a href=\"https://paypal.me/rgomezjnr\">PayPal</a></li>
+                    <li><a href=\"bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p\">Bitcoin</a> bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p</li>
+                    <li><a href=\"ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678\">Ethereum</a> 0xAB443e578c9eA629088e26A9009e44Ed40f68678</li>
+                </ul>
+                <br>
+                <h1>Authors</h1>
+                <ul>
+                    <li><a href=\"https://github.com/rgomezjnr\">Robert Gomez, Jr</a></li>
+                    <li><a href=\"https://github.com/mchan016\">Michael Chan</a></li>
+                    <li><a href=\"https://github.com/geoffrey-young\">Geoffrey Young</a></li>
+                </ul>
+                <br>
+                <h1>Source code</h1>
+                <a href=\"https://github.com/rgomezjnr/GcodeFilenameFormatPlus\">https://github.com/rgomezjnr/GcodeFilenameFormatPlus</a>
+                <br>
+                <h1>License</h1>
+                <a href=\"https://github.com/rgomezjnr/GcodeFilenameFormat/blob/master/LICENSE\">LGPLv3</a>"
         }
     }
 

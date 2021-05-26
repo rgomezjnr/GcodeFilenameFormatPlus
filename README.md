@@ -95,8 +95,14 @@ Example filename output:
 
     PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
 
-## Source code
-https://github.com/rgomezjnr/GcodeFilenameFormatPlus
+## Support
+If you find an issue or have any feedback please submit an issue on [GitHub](https://github.com/rgomezjnr/GcodeFilenameFormatPlus/issues).
+
+If you would like to show your support donations are greatly appeciated via:
+- [GitHub Sponsors](https://github.com/sponsors/rgomezjnr)
+- [PayPal](https://paypal.me/rgomezjnr)
+- [Bitcoin](bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p) bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p
+- [Ethereum](ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678) 0xAB443e578c9eA629088e26A9009e44Ed40f68678
 
 ## Authors
 [Robert Gomez, Jr.](https://github.com/rgomezjnr)
@@ -104,6 +110,9 @@ https://github.com/rgomezjnr/GcodeFilenameFormatPlus
 [Michael Chan](https://github.com/mchan016)
 
 [Geoffrey Young](https://github.com/geoffrey-young)
+
+## Source code
+https://github.com/rgomezjnr/GcodeFilenameFormatPlus
 
 ## License
 [LGPLv3](https://github.com/rgomezjnr/GcodeFilenameFormat/blob/master/LICENSE)
