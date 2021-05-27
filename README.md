@@ -1,12 +1,11 @@
 # Gcode Filename Format Plus
-
 Cura plugin that adds print settings in G-code filenames, now with multi-extruder and OctoPrint support
 
-Default filename format:
+## Default filename format:
 
     [abbr_machine] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C
 
-Example filename output:
+## Example filename output:
 
     PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
 
@@ -39,7 +38,6 @@ git clone https://github.com/rgomezjnr/GcodeFilenameFormatPlus.git
 Besides .gcode, the plugin also works with other file types such as .3mf and .stl. Simply select from the available file types in the save dialog. Additionally, GFF+ will pass the custom job name to an OctoPrint server when using the [OctoPrint Connection](https://marketplace.ultimaker.com/app/cura/plugins/fieldofview/OctoPrintPlugin) plugin.
 
 ## Format options
-
 - base_name - object/model name
 - job_name - same as base_name
 - abbr_machine - abbreviated printer machine name
@@ -87,11 +85,11 @@ For the full list please refer to [fdmprinter.def.json.pot](https://github.com/U
 ### Multiple extruder options
 For printers with multiple extruders, individual extruder settings can be specified by appending the extruder number to the option.
 
-Example filename format:
+#### Example filename format:
 
     [abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm
 
-Example filename output:
+#### Example filename output:
 
     PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode
 

@@ -96,12 +96,12 @@ UM.Dialog
                 <p>For printers with multiple extruders, individual extruder settings can be specified by appending<br>
                 the extruder number to the option.</p>
                 <br>
-                <p>Example filename format:</p>
+                <h3>Example filename format:</h3>
                 <br>
                 <p>[abbr_machine] [base_name] ext1 [brand1] [material1] [material_print_temperature1]C [line_width1]mm<br>
                 ext2 [brand2] [material2] [material_print_temperature2]C [line_width2]mm</p>
                 <br>
-                <p>Example filename output:</p>
+                <h3>Example filename output:</h3>
                 <br>
                 <p>PI3MK3M paperclip ext1 Ultimaker ABS 255C 0.7mm ext2 Ultimaker Tough PLA 215C 0.35mm.gcode</p>
                 <br>
