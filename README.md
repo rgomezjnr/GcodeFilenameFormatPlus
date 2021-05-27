@@ -1,5 +1,5 @@
 # Gcode Filename Format Plus
-Cura plugin that adds print settings in G-code filenames, now with multi-extruder and OctoPrint support
+Cura plugin for controlling output filename format, now with multi-extruder and OctoPrint support
 
 ## Default filename format:
 
