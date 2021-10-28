@@ -18,6 +18,10 @@ from UM.Application import Application
 from UM.Qt.Duration import DurationFormat
 from UM.PluginRegistry import PluginRegistry
 from UM.Scene.Iterator.DepthFirstIterator import DepthFirstIterator
+#from UM.Scene.SceneNode import SceneNode
+#from UM.plugins.Tools.ScaleTool import ScaleTool
+from cura.Arranging.ArrangeObjectsAllBuildPlatesJob import ArrangeObjectsAllBuildPlatesJob
+from UM.Scene.SceneNode import SceneNode
 from UM.Version import Version
 
 from cura.CuraApplication import CuraApplication
@@ -117,6 +121,8 @@ class GcodeFilenameFormatPlus(Extension, QObject):
     def getPrintSettings(self, filename_format):
         application = cast(CuraApplication, Application.getInstance())
         print_information = application.getPrintInformation()
+        #scale_tool = appliation.getScaleTool()
+        #scale_tool = appliation.ScaleTool.Selection
         machine_manager = application.getMachineManager()
         global_stack = machine_manager.activeMachine
         print_settings = dict()
@@ -140,8 +146,108 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             material_cost = print_information.materialCosts
             object_count = self.getObjectCount()
             cura_version = Version(Application.getInstance().getVersion())
+            #Logger.log("d", "application = %s", vars(application))
+
+            #active_build_plate = self.getMultiBuildPlateModel().activeBuildPlate
+            #active_build_plate = application.getMultiBuildPlateModel().activeBuildPlate
+            #Logger.log("d", "active_build_plate = %s", vars(active_build_plate))
+
+            #nodes_to_arrange = []
+            ##for node in DepthFirstIterator(self.getController().getScene().getRoot()):
+            #for node in DepthFirstIterator(application.getController().getScene().getRoot()):
+            #    if not isinstance(node, SceneNode):
+            #        continue
+
+            #    if not node.getMeshData() and not node.callDecoration("isGroup"):
+            #        continue  # Node that doesn't have a mesh and is not a group.
+
+            #    parent_node = node.getParent()
+            #    if parent_node and parent_node.callDecoration("isGroup"):
+            #        continue  # Grouped nodes don't need resetting as their parent (the group) is reset)
+
+            #    if not node.callDecoration("isSliceable") and not node.callDecoration("isGroup"):
+            #        continue  # i.e. node with layer data
+
+            #    bounding_box = node.getBoundingBox()
+            #    # Skip nodes that are too big
+            #    #if bounding_box is None or bounding_box.width < self._volume.getBoundingBox().width or bounding_box.depth < self._volume.getBoundingBox().depth:
+            #    if bounding_box is None or bounding_box.width < application._volume.getBoundingBox().width or bounding_box.depth < application._volume.getBoundingBox().depth:
+            #        nodes_to_arrange.append(node)
+
+            #job = ArrangeObjectsAllBuildPlatesJob(nodes_to_arrange)
+            ##job = ArrangeObjectsAllBuildPlatesJob(application.getController().getScene().getRoot())
+            ##job.start()
+            ##self.getCuraSceneController().setActiveBuildPlate(0)  # Select first build plate
+            #application.getCuraSceneController().setActiveBuildPlate(0)  # Select first build plate
+            ##nodes = job.getResult()
+            #node = job.getResult()
+            #scale = node.getScale()
+            ##scale = nodes[0].getScale()
+            #Logger.log("d", "scale = %s", scale)
+            ##for node in nodes:
+            ##    scale = node.getScale()
+            ##    Logger.log("d", "scale = %s", scale)
+
+
+            #selection = Selection.getSelectedObject(0)
+            #def getScaleX(self):
+            #    """Get the x-axis scale of the first selected object
+            #    :return: scale type(float) scale factor (1.0 = normal scale)
+            #    """
+
+            #    if Selection.hasSelection():
+            #        ## Ensure that the returned value is positive (mirror causes scale to be negative)
+            #        return abs(round(float(self._getScaleInWorldCoordinates(Selection.getSelectedObject(0)).x), 4))
+
+            #controller = UM.Application.Application.getInstance().getController()
+            #Logger.log("d", "controller = %s", vars(controller))
+            ##scale = SceneNode.getScale()
+            #non_uniform_scale = ScaleTool.getNonUniformScale()
+            #scale_x = ScaleTool.getScaleX()
+            #scale_y = ScaleTool.getScaleY()
+            #scale_z = ScaleTool.getScaleZ()
+            #Logger.log("d", "non_uniform_scale = %s", non_uniform_scale)
+            #Logger.log("d", "scale_x = %s", scale_x)
+            #Logger.log("d", "scale_y = %s", scale_y)
+            #Logger.log("d", "scale_z = %s", scale_z)
         except (IndexError, AttributeError):
             return None
+
+        #nodes_to_arrange = []
+        ##for node in DepthFirstIterator(self.getController().getScene().getRoot()):
+        #for node in DepthFirstIterator(application.getController().getScene().getRoot()):
+        #    if not isinstance(node, SceneNode):
+        #        continue
+
+        #    if not node.getMeshData() and not node.callDecoration("isGroup"):
+        #        continue  # Node that doesn't have a mesh and is not a group.
+
+        #    parent_node = node.getParent()
+        #    if parent_node and parent_node.callDecoration("isGroup"):
+        #        continue  # Grouped nodes don't need resetting as their parent (the group) is reset)
+
+        #    if not node.callDecoration("isSliceable") and not node.callDecoration("isGroup"):
+        #        continue  # i.e. node with layer data
+
+        #    bounding_box = node.getBoundingBox()
+        #    # Skip nodes that are too big
+        #    #if bounding_box is None or bounding_box.width < self._volume.getBoundingBox().width or bounding_box.depth < self._volume.getBoundingBox().depth:
+        #    if bounding_box is None or bounding_box.width < application._volume.getBoundingBox().width or bounding_box.depth < application._volume.getBoundingBox().depth:
+        #        nodes_to_arrange.append(node)
+
+        #job = ArrangeObjectsAllBuildPlatesJob(nodes_to_arrange)
+        ##job = ArrangeObjectsAllBuildPlatesJob(application.getController().getScene().getRoot())
+        ##job.start()
+        ##self.getCuraSceneController().setActiveBuildPlate(0)  # Select first build plate
+        #application.getCuraSceneController().setActiveBuildPlate(0)  # Select first build plate
+        ##nodes = job.getResult()
+        #node = job.getResult()
+        #scale = node.getScale()
+        ##scale = nodes[0].getScale()
+        #Logger.log("d", "scale = %s", scale)
+        ##for node in nodes:
+        ##    scale = node.getScale()
+        ##    Logger.log("d", "scale = %s", scale)
 
         date = QDate.currentDate().toString(format=Qt.ISODate)
         time = QDateTime.currentDateTime().toString("HH-mm")
