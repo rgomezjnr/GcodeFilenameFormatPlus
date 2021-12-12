@@ -62,6 +62,10 @@ Besides .gcode, the plugin also works with other file types such as .3mf and .st
 - material_length - printed material length (m)
 - material_cost - printed material cost
 - color_name - material color
+- scale - uniform scale of the object (%)
+- scale_x - scale of the object on the x axis (%)
+- scale_y - scale of the object on the y axis (%)
+- scale_z - scale of the object on the z axis (%)
 - speed_print - print speed (mm/s)
 - retraction_combing - combing mode
 - magic_spiralize - spiralize outer contour, vase mode
@@ -99,8 +103,9 @@ If you find an issue or have any feedback please submit an issue on [GitHub](htt
 If you would like to show your support donations are greatly appeciated via:
 - [GitHub Sponsors](https://github.com/sponsors/rgomezjnr)
 - [PayPal](https://paypal.me/rgomezjnr)
-- [Bitcoin](bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p) bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p
-- [Ethereum](ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678) 0xAB443e578c9eA629088e26A9009e44Ed40f68678
+- [PayNym:](https://paynym.is/+orangesmoke693) +orangesmoke693
+- [Bitcoin:](bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p) bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p
+- [Ethereum:](ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678) 0xAB443e578c9eA629088e26A9009e44Ed40f68678
 
 ## Authors
 [Robert Gomez, Jr.](https://github.com/rgomezjnr)

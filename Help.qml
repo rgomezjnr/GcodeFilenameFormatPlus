@@ -71,6 +71,10 @@ UM.Dialog
                     <li>material_length - printed material length (m)</li>
                     <li>material_cost - printed material cost</li>
                     <li>color_name - material color</li>
+                    <li>scale - uniform scale of the object (%)</li>
+                    <li>scale_x - scale of the object on the x axis (%)</li>
+                    <li>scale_y - scale of the object on the y axis (%)</li>
+                    <li>scale_z - scale of the object on the z axis (%)</li>
                     <li>speed_print - print speed (mm/s)</li>
                     <li>retraction_combing - combing mode</li>
                     <li>magic_spiralize - spiralize outer contour, vase mode</li>
@@ -112,8 +116,9 @@ UM.Dialog
                 <ul>
                     <li><a href=\"https://github.com/sponsors/rgomezjnr\">GitHub Sponsors</a></li>
                     <li><a href=\"https://paypal.me/rgomezjnr\">PayPal</a></li>
-                    <li><a href=\"bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p\">Bitcoin</a> bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p</li>
-                    <li><a href=\"ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678\">Ethereum</a> 0xAB443e578c9eA629088e26A9009e44Ed40f68678</li>
+                    <li><a href=\"https://paynym.is/+orangesmoke693\">PayNym:</a> +orangesmoke693</li>
+                    <li><a href=\"bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p\">Bitcoin:</a> bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p</li>
+                    <li><a href=\"ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678\">Ethereum:</a> 0xAB443e578c9eA629088e26A9009e44Ed40f68678</li>
                 </ul>
                 <br>
                 <h1>Authors</h1>
