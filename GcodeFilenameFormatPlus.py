@@ -122,6 +122,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         global_stack = machine_manager.activeMachine
         print_settings = dict()
         multi_extruder_settings = dict()
+        nodes = dict()
 
         try:
             first_extruder_stack = ExtruderManager.getInstance().getActiveExtruderStacks()[0]
@@ -141,28 +142,10 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             material_cost = print_information.materialCosts
             object_count = self.getObjectCount()
             cura_version = Version(Application.getInstance().getVersion())
-
-            nodes_to_arrange = []
-            for node in DepthFirstIterator(application.getController().getScene().getRoot()):
-                if not isinstance(node, SceneNode):
-                    continue
-
-                if not node.getMeshData() and not node.callDecoration("isGroup"):
-                    continue  # Node that doesn't have a mesh and is not a group.
-
-                parent_node = node.getParent()
-                if parent_node and parent_node.callDecoration("isGroup"):
-                    continue  # Grouped nodes don't need resetting as their parent (the group) is reset)
-
-                if not node.callDecoration("isSliceable") and not node.callDecoration("isGroup"):
-                    continue  # i.e. node with layer data
-
-                bounding_box = node.getBoundingBox()
-                # Skip nodes that are too big
-                if bounding_box is None or bounding_box.width < application._volume.getBoundingBox().width or bounding_box.depth < application._volume.getBoundingBox().depth:
-                    nodes_to_arrange.append(node)
-
-            scale_vector = nodes_to_arrange[0].getScale()
+            nodes = self.getNodes()
+            #scale_vector = nodes[0].getScale()
+            #scale_vector = next(iter(nodes)).getScale()
+            scale_vector = list(nodes.keys())[0].getScale()
             scale_x = round(scale_vector.x * 100, 2)
             scale_y = round(scale_vector.z * 100, 2)
             scale_z = round(scale_vector.y * 100, 2)
@@ -322,3 +305,29 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             count += 1
 
         return count
+
+    def getNodes(self):
+    #def getNodes(self) -> dict:
+        application = cast(CuraApplication, Application.getInstance())
+        nodes = {}
+
+        for node in DepthFirstIterator(application.getController().getScene().getRoot()):
+            if not isinstance(node, SceneNode):
+                continue
+
+            if not node.getMeshData() and not node.callDecoration("isGroup"):
+                continue  # Node that doesn't have a mesh and is not a group.
+
+            parent_node = node.getParent()
+            if parent_node and parent_node.callDecoration("isGroup"):
+                continue  # Grouped nodes don't need resetting as their parent (the group) is reset)
+
+            if not node.callDecoration("isSliceable") and not node.callDecoration("isGroup"):
+                continue  # i.e. node with layer data
+
+            bounding_box = node.getBoundingBox()
+            # Skip nodes that are too big
+            if bounding_box is None or bounding_box.width < application._volume.getBoundingBox().width or bounding_box.depth < application._volume.getBoundingBox().depth:
+                nodes.append(node)
+
+        return nodes
