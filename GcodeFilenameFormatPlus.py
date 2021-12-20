@@ -290,28 +290,6 @@ class GcodeFilenameFormatPlus(Extension, QObject):
 
         return print_settings
 
-    def editFormat(self):
-        if not self.format_window:
-            self.format_window = self._createDialogue()
-        self.format_window.show()
-
-    def _createDialogue(self):
-        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "Format.qml")
-        component = Application.getInstance().createQmlComponent(qml_file_path)
-
-        return component
-
-    def help(self):
-        if not self.help_window:
-            self.help_window = self._createHelpDialog()
-        self.help_window.show()
-
-    def _createHelpDialog(self):
-        qml_file_path = os.path.join(PluginRegistry.getInstance().getPluginPath(self.getPluginId()), "Help.qml")
-        component = Application.getInstance().createQmlComponent(qml_file_path)
-
-        return component
-
     def getObjectCount(self) -> int:
         count = 0
 
