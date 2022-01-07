@@ -29,6 +29,7 @@ from GcodeFilenameFormatPlus.ParseFilenameFormat import parseFilenameFormat
 
 catalog = i18nCatalog("cura")
 
+MAX_FILENAME_LENGTH = 80
 DEFAULT_FILENAME_FORMAT = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
 
 class GcodeFilenameFormatPlus(Extension, QObject):
@@ -36,6 +37,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         QObject.__init__(self, parent)
         Extension.__init__(self)
 
+        Application.getInstance().getPreferences().addPreference("gcode_filename_format_plus/max_filename_length", MAX_FILENAME_LENGTH)
         Application.getInstance().getPreferences().addPreference("gcode_filename_format_plus/filename_format", DEFAULT_FILENAME_FORMAT)
 
         self.setMenuName("Gcode Filename Format Plus")
@@ -103,6 +105,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
     def _triggerJobNameUpdate(self, *args, **kwargs) -> None:
         self._print_information._job_name = ""      # Fixes filename clobbering from repeated calls
         filename_format = Application.getInstance().getPreferences().getValue("gcode_filename_format_plus/filename_format")
+        max_filename_length = Application.getInstance().getPreferences().getValue("gcode_filename_format_plus/max_filename_length")
 
         print_settings = self.getPrintSettings(filename_format)
 
@@ -110,7 +113,11 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         # Necessary when getPrintSettings() attempts to access unavailable print settings during Cura exit
         if print_settings:
             file_name = parseFilenameFormat(print_settings, filename_format)
-            self._print_information._job_name = file_name
+
+            if int(float(max_filename_length)) > 0:
+                self._print_information._job_name = file_name[0:int(float(max_filename_length))]
+            else:
+                self._print_information._job_name = file_name
         else:
             return
 
