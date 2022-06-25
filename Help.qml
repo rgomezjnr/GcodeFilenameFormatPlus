@@ -92,6 +92,7 @@ UM.Dialog
                     <li>day - current day in DD</li>
                     <li>hour - current hour in HH</li>
                     <li>minute - current minute in MM</li>
+                    <li>second - current second in SS</li>
                 </ul>
                 <br>
                 <p>For the full list please refer to <a href=\"https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot\">fdmprinter.def.json.pot</a></p>

@@ -83,6 +83,7 @@ Besides .gcode, the plugin also works with other file types such as .3mf and .st
 - day - current day in DD
 - hour - current hour in HH
 - minute - current minute in MM
+- second - current second in SS
 
 For the full list please refer to [fdmprinter.def.json.pot](https://github.com/Ultimaker/Cura/blob/master/resources/i18n/fdmprinter.def.json.pot)
 

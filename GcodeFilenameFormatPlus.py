@@ -170,14 +170,15 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         except (IndexError, AttributeError):
             return None
 
-        date = QDate.currentDate().toString(format=Qt.ISODate)
         time = QDateTime.currentDateTime().toString("HH-mm")
-        datetime = QDateTime.currentDateTime().toString(format=Qt.ISODate)
         year =  QDateTime.currentDateTime().toString("yyyy")
         month = QDateTime.currentDateTime().toString("MM")
         day = QDateTime.currentDateTime().toString("dd")
         hour = QDateTime.currentDateTime().toString("HH")
         minute = QDateTime.currentDateTime().toString("mm")
+        second = QDateTime.currentDateTime().toString("ss")
+        date = year + '-' + month + '-' + day
+        datetime = date + 'T' + hour + minute + second
 
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
@@ -249,6 +250,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         print_settings["day"] = day
         print_settings["hour"] = hour
         print_settings["minute"] = minute
+        print_settings["second"] = second
         print_settings["object_count"] = object_count
         print_settings["cura_version"] = cura_version
         print_settings["scale_x"] = f'{scale_x:g}'
