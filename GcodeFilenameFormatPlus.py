@@ -5,11 +5,11 @@ import os.path
 
 from typing import cast
 
-from PyQt5.QtCore import QUrl, Qt, QDate, QDateTime
-from PyQt5.QtGui import QDesktopServices
-from PyQt5.QtQml import QQmlComponent, QQmlContext
-from PyQt5.QtWidgets import QFileDialog, QMessageBox
-from PyQt5.QtCore import QObject, pyqtProperty, pyqtSignal
+from PyQt6.QtCore import QUrl, Qt, QDate, QDateTime
+from PyQt6.QtGui import QDesktopServices
+from PyQt6.QtQml import QQmlComponent, QQmlContext
+from PyQt6.QtWidgets import QFileDialog, QMessageBox
+from PyQt6.QtCore import QObject, pyqtProperty, pyqtSignal
 
 from UM.Logger import Logger
 from UM.i18n import i18nCatalog

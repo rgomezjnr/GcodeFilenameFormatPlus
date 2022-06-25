@@ -1,9 +1,9 @@
 // AGPLv3
 
-import UM 1.2 as UM
-import QtQuick 2.2
+import UM 1.5 as UM
+import QtQuick 2.7
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.1
+import QtQuick.Controls 2.3
 
 UM.Dialog
 {
@@ -24,14 +24,14 @@ UM.Dialog
     leftButtons: Button
     {
         text: "Default"
-        iconName: "dialog-default"
+        // iconName: "dialog-default"
         onClicked: textfield.text = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
     }
 
     rightButtons: Button
     {
         text: "Close"
-        iconName: "dialog-close"
+        // iconName: "dialog-close"
         onClicked:
         {
             base.visible = false;

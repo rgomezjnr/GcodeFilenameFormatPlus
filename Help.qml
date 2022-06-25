@@ -1,9 +1,9 @@
 // LGPLv3
 
-import UM 1.2 as UM
+import UM 1.5 as UM
 import QtQuick 2.2
 import QtQuick.Window 2.2
-import QtQuick.Controls 1.3
+import QtQuick.Controls 2.3
 
 UM.Dialog
 {
@@ -16,7 +16,7 @@ UM.Dialog
     ScrollView {
         width: parent.width
         height: parent.height
-        horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
+        // horizontalScrollBarPolicy: Qt.ScrollBarAlwaysOff
 
         Text
         {
@@ -139,7 +139,7 @@ UM.Dialog
     rightButtons: Button
     {
         text: "Close"
-        iconName: "dialog-close"
+        // iconName: "dialog-close"
         onClicked:
         {
             base.visible = false;
