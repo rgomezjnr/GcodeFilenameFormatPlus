@@ -12,11 +12,11 @@ UM.Dialog
     id: base
     title: "Gcode Filename Format Plus - Edit Format"
     width: 600 * screenScaleFactor
-    height: 70 * screenScaleFactor
+    height: 80 * screenScaleFactor
     minimumWidth: 300 * screenScaleFactor
     minimumHeight: 70 * screenScaleFactor
 
-    TextField
+    Cura.TextField
     {
         id: textfield
         text: UM.Preferences.getValue("gcode_filename_format_plus/filename_format")
