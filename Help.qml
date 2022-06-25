@@ -1,9 +1,11 @@
 // LGPLv3
 
 import UM 1.5 as UM
-import QtQuick 2.2
+import QtQuick 2.15
 import QtQuick.Window 2.2
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.15
+
+import Cura 1.5 as Cura
 
 UM.Dialog
 {
@@ -137,7 +139,7 @@ UM.Dialog
         }
     }
 
-    rightButtons: Button
+    rightButtons: Cura.SecondaryButton
     {
         text: "Close"
         // iconName: "dialog-close"
