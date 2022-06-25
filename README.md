@@ -10,7 +10,7 @@ Cura plugin for controlling output filename format, now with multi-extruder and 
     PI3MK3M paperclip Generic PLA lw 0.4mm lh 0.2mm if 20% ext1 200C bed 60C.gcode
 
 ## Requirements
-Cura 4.4 or later
+Cura 5.0 or later
 
 ## Installation
 ### Preferred method
@@ -22,9 +22,9 @@ Install plugin from [Ultimaker Marketplace](https://marketplace.ultimaker.com/ap
 git clone https://github.com/rgomezjnr/GcodeFilenameFormatPlus.git
 ```
 2. Move GcodeFilenameFormatPlus folder to Cura plugins folder
-- Windows: C:\Users\\%USERNAME%\AppData\Roaming\cura\4.4\plugins
-- Mac: $User/Library/Application\ Support/Cura/4.4/plugins
-- Linux: $HOME/.local/share/cura/4.4/plugins
+- Windows: C:\Users\\%USERNAME%\AppData\Roaming\cura\5.0\plugins
+- Mac: $User/Library/Application\ Support/Cura/5.0/plugins
+- Linux: $HOME/.local/share/cura/5.0/plugins
 3. Launch Cura
 
 ## Usage
@@ -43,7 +43,7 @@ Besides .gcode, the plugin also works with other file types such as .3mf and .st
 - abbr_machine - abbreviated printer machine name
 - printer_name - printer manufacturer and model
 - profile_name - name of the profile used for slicing e.g. Normal, Fine, Draft
-- cura_version - the Semantic version of Cura e.g. 4.4.0
+- cura_version - the Semantic version of Cura e.g. 5.0.0
 - object_count - number of objects on the build plate
 - layer_height - layer height/thickness, vertical resolution (mm)
 - machine_nozzle_size - nozzle diameter e.g. 0.2 mm, 0.4 mm, 0.6 mm
@@ -106,7 +106,6 @@ If you would like to show your support donations are greatly appeciated via:
 - [PayPal](https://paypal.me/rgomezjnr)
 - [PayNym:](https://paynym.is/+orangesmoke693) +orangesmoke693
 - [Bitcoin:](bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p) bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p
-- [Ethereum:](ethereum:0xAB443e578c9eA629088e26A9009e44Ed40f68678) 0xAB443e578c9eA629088e26A9009e44Ed40f68678
 
 ## Authors
 [Robert Gomez, Jr.](https://github.com/rgomezjnr)
