@@ -112,9 +112,14 @@ the option.
 ## Support
 If you find an issue or have any feedback please submit an issue on [GitHub](https://github.com/rgomezjnr/GcodeFilenameFormatPlus/issues).
 
+You can also reachout via Twitter [@rgomezjnr](https://twitter.com/rgomezjnr).
+
 If you would like to show your support donations are greatly appeciated via:
 - [GitHub Sponsors](https://github.com/sponsors/rgomezjnr)
 - [PayPal](https://paypal.me/rgomezjnr)
+- [Venmo](https://account.venmo.com/u/rgomezjnr)
+- [Cash app](https://cash.app/$rgomezjnr)
+- [Strike](https://strike.me/rgomezjnr)
 - [PayNym:](https://paynym.is/+orangesmoke693) +orangesmoke693
 - [Bitcoin:](bitcoin:bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p) bc1qh46qmztl77d9dl8f6ezswvqdqxcaurrqegca2p
 
