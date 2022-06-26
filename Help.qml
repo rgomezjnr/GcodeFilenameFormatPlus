@@ -136,7 +136,6 @@ https://github.com/rgomezjnr/GcodeFilenameFormatPlus
     rightButtons: Cura.SecondaryButton
     {
         text: "Close"
-        // iconName: "dialog-close"
         onClicked:
         {
             base.visible = false;

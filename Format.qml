@@ -26,14 +26,12 @@ UM.Dialog
     leftButtons: Cura.SecondaryButton
     {
         text: "Default"
-        // iconName: "dialog-default"
         onClicked: textfield.text = "[abbr_machine] [base_name] [brand] [material] lw [line_width]mm lh [layer_height]mm if [infill_sparse_density]% ext1 [material_print_temperature]C bed [material_bed_temperature]C"
     }
 
     rightButtons: Cura.SecondaryButton
     {
         text: "Close"
-        // iconName: "dialog-close"
         onClicked:
         {
             base.visible = false;
