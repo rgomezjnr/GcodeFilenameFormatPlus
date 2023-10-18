@@ -167,7 +167,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
             return None
 
         time = QDateTime.currentDateTime().toString("HH-mm")
-        year =  QDateTime.currentDateTime().toString("yyyy")
+        year =  QDateTime.currentDateTime().toString("yy")
         month = QDateTime.currentDateTime().toString("MM")
         day = QDateTime.currentDateTime().toString("dd")
         hour = QDateTime.currentDateTime().toString("HH")
@@ -175,6 +175,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         second = QDateTime.currentDateTime().toString("ss")
         date = year + '-' + month + '-' + day
         datetime = date + 'T' + hour + minute + second
+        counter_down = str(1000000 - (int(year)*10000) - (int(month)*1000) - (int(day)*100) - (int(hour)*10) - int(minute))
 
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
@@ -241,6 +242,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         print_settings["date"] = date
         print_settings["time"] = time
         print_settings["datetime"] = datetime
+        print_settings["counter_down"] = counter_down
         print_settings["year"] = year
         print_settings["month"] = month
         print_settings["day"] = day
