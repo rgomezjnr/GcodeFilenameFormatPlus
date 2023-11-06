@@ -176,7 +176,7 @@ class GcodeFilenameFormatPlus(Extension, QObject):
         second = QDateTime.currentDateTime().toString("ss")
         date = year + '-' + month + '-' + day
         datetime = date + 'T' + hour + minute + second
-        counter_down = str(1000000 - (int(year2)*10000) - (int(month)*1000) - (int(day)*100) - (int(hour)*10) - int(minute))
+        counter_down = str(100000000 - (int(year)*1000000) - (int(month)*80000) - (int(day)*4000) - (int(hour)*61) - int(minute))
 
         tokens = re.split(r'\W+', filename_format)      # TODO: split on brackets only
 
